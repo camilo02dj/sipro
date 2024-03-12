@@ -3,32 +3,23 @@ require_once "conexion.php";
 
 class ModeloVentas
 {
+    static public function mdlMostrarVentas($tabla, $item, $valor)
+    {
+        $stmt = Conexion::conectar()->prepare($item != null ?
+            "SELECT  t.co, t.desc_item, c.centro_operacion, Sum(t.cantidad) as totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE $item = :$item GROUP BY desc_item" :
+            "SELECT t.co, t.desc_item, c.centro_operacion, t.cantidad FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo");
 
-	static public function mdlMostrarVentas($tabla, $item, $valor)
-	{
+        if ($item != null) {
+            $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+        }
 
-		if ($item != null) {
+        $stmt->execute();
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+        $resultado = $item != null ? $stmt->fetchAll() : $stmt->fetchAll();
 
-			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
+        $stmt = null; // Cerrar la declaración PDO correctamente
 
-			$stmt->execute();
-
-			return $stmt->fetch();
-		} else {
-
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla ");
-
-			$stmt->execute();
-
-			return $stmt->fetchAll();
-		}
-
-
-		$stmt->close();
-
-		$stmt = null;
-	}
-
+        return $resultado;
+    }
 }
+

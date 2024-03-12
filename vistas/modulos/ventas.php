@@ -44,9 +44,8 @@ if ($_SESSION["perfil"] == "Especial") {
                                     <thead>
                                         <tr>
                                             <th style="width:10px">#</th>
-                                            <th>co</th>
-                                            <th>desc_item</th>
-                                            <th>cantidad</th>
+                                            <th>Producto</th>
+                                            <th>Unidades Vendidas</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -65,19 +64,4 @@ if ($_SESSION["perfil"] == "Especial") {
 
     </div> <!-- content -->
 </div>
-<style>
-.page-item.active .page-link {
-    background-color: #2fac73; 
-    border-color: #2fac73;
-    color: #fff; 
-}
-.btnImprimirReporte{
-    background-color: #2fac73;
-    font-size: 15px;
-}
-.btn-group{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-</style>
+

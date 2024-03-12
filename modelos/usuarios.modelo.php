@@ -29,8 +29,8 @@ class ModeloUsuarios{
 			return $stmt -> fetchAll();
 
 		}
+	
 		
-
 		$stmt -> close();
 
 		$stmt = null;

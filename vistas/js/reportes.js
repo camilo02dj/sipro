@@ -1,7 +1,7 @@
 var perfilOculto = $("#perfilOculto").val();
 
 $('.tablasR').DataTable( {
-    "ajax": "ajax/datatable-reportes.ajax.php?perfilOculto="+perfilOculto,
+    "ajax": "ajax/datatable-ventas.ajax.php?perfilOculto="+perfilOculto,
     "deferRender": true,
 	"retrieve": true,
 	"processing": true,
