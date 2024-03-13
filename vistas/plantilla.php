@@ -168,7 +168,7 @@ session_start();
   <!-- third party js ends -->
   <!-- Script Propios -->
   <script src="vistas/js/plantilla.js"></script>
-  <script src="vistas/js/reportes.js"></script>
+  <script src="vistas/js/ventas.js"></script>
   <script src="vistas/js/usuarios.js"></script>
   
 

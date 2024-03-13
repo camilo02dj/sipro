@@ -8,7 +8,7 @@
 				<li class="menu-title mt-2">Menú</li>
 
 				<li>
-					<a href="reportes" class="menu-item">
+					<a href="ventas" class="menu-item">
 						<i class="fas fa-tractor"></i>
 						<span>Ventas</span>
 					</a>

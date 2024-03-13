@@ -1,19 +1,17 @@
 <?php
 
-if ($_SESSION["perfil"] == "Especial") {
+if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
 
     echo '<script>
-  
-      window.location = "inicio";
-  
-    </script>';
+
+    window.location = "inicio";
+
+  </script>';
 
     return;
 }
 
-
 ?>
-
 <div class="content-page">
     <div class="content">
 
@@ -26,10 +24,10 @@ if ($_SESSION["perfil"] == "Especial") {
                         <div class="page-title-right">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="inicio">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Ventas</li>
+                                <li class="breadcrumb-item active">Informes</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Ventas X Proveedor</h4>
+                        <h4 class="page-title">Informacion Actualizada a:</h4>
                     </div>
                 </div>
             </div>
@@ -39,22 +37,74 @@ if ($_SESSION["perfil"] == "Especial") {
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="" class="tablasR table-sm table-striped nowrap w-100">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:10px">#</th>
-                                            <th>Producto</th>
-                                            <th>Unidades Vendidas</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <input type="hidden" value="<?php echo $_SESSION['perfil']; ?>" id="perfilOculto">
-                                       
-                                    </tbody>
-                                </table>
-                            </div>
+                            
+                                <button class="btn btn-secondary waves-effect " id="btnDatarange">
+
+                                    <span>
+                                        <i class="fa fa-calendar"> </i> Rango de fecha
+                                    </span>
+                                    <i class="fa fa-caret-down"></i>
+
+                                </button>
+                                <button class="btn btn-success cancelaRange">Cancelar Rango</button>
+                                <hr>
+                           
+                            <table id="" class="table table-sm table-striped dt-responsive tablas tablasDetallePro">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Producto</th>
+                                        <th>Unidades</th>
+                                        <th>Acciones</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $item = "item_proveedor";
+                                    $valor = '830127647';
+                                    
+                                    if(isset($_GET["fechaInicial"])){
+
+                                      
+                                        $fechaInicial = $_GET["fechaInicial"];
+                                        $fechaFinal = $_GET["fechaFinal"];
+
+
+                                    }else{
+
+                                        $fechaInicial = null;
+                                        $fechaFinal = null;
+                                    }
+
+                                    $ventas = ControladorVentas::ctrMostrarVentas($fechaInicial, $fechaFinal, $item, $valor);
+
+                                    foreach ($ventas as $key => $value) {
+
+
+                                        echo '<tr>
+
+                                                        <td>' . ($key + 1) . '</td>
+
+                                                        <td>' . $value["desc_item"] . '</td>
+
+                                                        <td>' . number_format($value["totalVendido"], 0) . '</td>
+                                                        <td>  
+                                                        <div class="btn-group">
+                                              
+                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '">
+            
+                                                          <i class="fa fa-eye"></i>
+                                  
+                                                        </button></td>
+
+                                                </tr>';
+                                    }
+
+                                    ?>
+                                </tbody>
+                            </table>
+
                         </div> <!-- end card body-->
                     </div> <!-- end card -->
                 </div><!-- end col-->
@@ -64,4 +114,38 @@ if ($_SESSION["perfil"] == "Especial") {
 
     </div> <!-- content -->
 </div>
+<!--MODAL MOSTRAR PROYECTOS ASOCIADOS -->
 
+<div id="modalVerVentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Detalle del Producto</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body px-12">
+                    <table id="" class="table tableSubQuery">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Centro O.</th>
+                                <th>Unidades</th>
+                               
+
+                            </tr>
+                        </thead>
+                        <tbody id="detalleProducto">
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cancelar</button>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
