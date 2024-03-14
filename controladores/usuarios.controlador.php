@@ -57,18 +57,37 @@ class ControladorUsuarios
 
 							echo '<script>
 
-								window.location = "inicio";
+								window.location = "ventas";
 
 							</script>';
 						}
 					} else {
 
-						echo '<br>
-							<div class="alert alert-danger">El usuario aún no está activado</div>';
+						echo '<script>
+						document.addEventListener("DOMContentLoaded", function() {
+							Swal.fire({
+							position: "top-end",
+							icon: "error",
+							title: "El usuario no esta activado",
+							showConfirmButton: false,
+							timer: 1500
+							});
+						});
+						</script>';
 					}
 				} else {
 
-					echo '<br><div class="alert alert-danger">Error al ingresar, vuelve a intentarlo</div>';
+					echo '<script>
+					document.addEventListener("DOMContentLoaded", function() {
+							Swal.fire({
+							position: "top-end",
+							icon: "error",
+							title: "Error de usuario y/o contraseña",
+							showConfirmButton: false,
+							timer: 1500
+							});
+						});
+						</script>';
 				}
 			}
 		}

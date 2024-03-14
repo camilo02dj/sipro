@@ -9,10 +9,8 @@ session_start();
 
 <head>
   <meta charset="utf-8" />
-  <title>Reporte Cartera | SucampoSullanta</title>
+  <title>SIPRO | SucampoSullanta</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
-  <meta content="Coderthemes" name="author" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- App favicon -->
   <!-- <link rel="shortcut icon" href="vistas/assets/images/favicon.ico"> -->
@@ -97,7 +95,7 @@ session_start();
       }
     } else {
 
-      include "modulos/inicio.php";
+      include "modulos/ventas.php";
     }
 
     /*=============================================
@@ -164,6 +162,8 @@ session_start();
   <script type="text/javascript" src="vistas/bower_components/daterangepicker/moment.min.js"></script>
   <script type="text/javascript" src="vistas/bower_components/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="vistas/bower_components/daterangepicker/daterangepicker.css" />
+  <!-- Incluir Moment.js con locales -->
+<script src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
 
   <!-- third party js ends -->
   <!-- Script Propios -->

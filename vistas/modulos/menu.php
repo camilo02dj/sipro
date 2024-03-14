@@ -9,7 +9,8 @@
 
 				<li>
 					<a href="ventas" class="menu-item">
-						<i class="fas fa-tractor"></i>
+					<i class="fas fa-shopping-basket"></i>
+
 						<span>Ventas</span>
 					</a>
 				</li>

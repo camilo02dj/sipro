@@ -1,44 +1,54 @@
-$('#btnDatarange').daterangepicker({
-    ranges: {
-        //'Hoy': [moment(), moment()],
-        //'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-        'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
-        'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
-        'Este mes': [moment().startOf('month'), moment().endOf('month')],
-        'Último mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+$(function() { // Asegúrate de que el DOM esté completamente cargado
+    function setButtonLabel(start, end) {
+        // Formatea las fechas y actualiza el texto del botón utilizando el formato español
+        let label = start.format('D [de] MMMM [de] YYYY') + ' - ' + end.format('D [de] MMMM [de] YYYY');
+        $('#btnDatarange span').html(label);
 
-    },
-    startDate: moment(),
-    endDate: moment()
-},
-function(start, end) {
-    $('#btnDatarange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+        // Guarda el rango seleccionado en el almacenamiento local
+        localStorage.setItem("capturarRango", label);
 
-    var fechaInicial = start.format('YYYY-MM-DD');
+        // Opcionalmente, actualiza la URL o haz una petición AJAX aquí si no deseas redirigir
+        window.location = "index.php?ruta=ventas&fechaInicial=" + start.format('YYYY-MM-DD') + "&fechaFinal=" + end.format('YYYY-MM-DD');
+    }
 
-    var fechaFinal = end.format('YYYY-MM-DD');
+    // Configura el daterangepicker con las opciones de localización en español
+    $('#btnDatarange').daterangepicker({
+        ranges: {
+            'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'Último mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+        },
+        startDate: moment(),
+        endDate: moment(),
+        locale: {
+            format: 'D [de] MMMM [de] YYYY', // Formato de fecha en español
+            applyLabel: 'Aplicar',
+            cancelLabel: 'Cancelar',
+            fromLabel: 'Desde',
+            toLabel: 'Hasta',
+            customRangeLabel: 'Rango personalizado',
+            daysOfWeek: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sá'],
+            monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+            firstDay: 1 // El primer día de la semana, Lunes
+        }
+    }, setButtonLabel);
 
-    var capturarRango = $("#btnDatarange span").html();
+    // Revisa el almacenamiento local para el rango seleccionado previamente
+    let capturarRango = localStorage.getItem("capturarRango");
+    if (capturarRango) {
+        $('#btnDatarange span').html(capturarRango);
+    } else {
+        $('#btnDatarange span').html('Rango de Fechas');
+    }
 
-    localStorage.setItem("capturarRango", capturarRango);
-
-    window.location = "index.php?ruta=ventas&fechaInicial=" + fechaInicial + "&fechaFinal=" + fechaFinal;
-
-}
-
-)
-
-/*=============================================
-CANCELAR RANGO DE FECHAS
-=============================================*/
-
-$(".cancelaRange").on("click", function() {
-
-localStorage.removeItem("capturarRango");
-localStorage.clear();
-window.location = "ventas";
-})
-
+    $(".cancelaRange").on("click", function() {
+        localStorage.removeItem("capturarRango");
+        localStorage.clear();
+        window.location = "ventas";
+        $('#btnDatarange span').html('Rango de Fechas'); // Restablece el texto del botón al predeterminado
+    });
+});
 
 //Mostrar Detalle Productos
 $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
@@ -63,16 +73,20 @@ $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
         success: function(respuesta) {
             var table = $(".tableSubQuery").DataTable();
             table.clear(); // Limpia los datos existentes antes de añadir los nuevos
-
+    
+            // Asumiendo que la respuesta es un objeto que incluye el nombre del producto bajo la clave 'nombreProducto'
+            // Si la respuesta es un arreglo, asegúrate de acceder al nombre del producto correctamente
+            $("#nombreProducto").text(respuesta[0]["desc_item"]); // Actualiza el título del modal con el nombre del producto
+    
             respuesta.forEach(function(item) {
                 table.row.add([
-                    item["fecha"],
                     item["centro_operacion"],
                     item["totalVendido"]
                 ]);
             });
-
+    
             table.draw(); // Redibuja la tabla con los nuevos datos
         }
     });
+    
 });

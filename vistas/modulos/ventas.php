@@ -27,7 +27,9 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                 <li class="breadcrumb-item active">Informes</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Informacion Actualizada a:</h4>
+                        <?php
+                        $fechaM=ControladorVentas::ctrFechaMaxima();
+                        echo'<h4 class="page-title">Informacion Actualizada al: '.$fechaM["fechaMaxima"].' </h4>'?>
                     </div>
                 </div>
             </div>
@@ -53,7 +55,6 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>fecha</th>
                                         <th>Producto</th>
                                         <th>Unidades</th>
                                         <th>Acciones</th>
@@ -63,7 +64,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                 <tbody>
                                     <?php
                                     //$item ="item_proveedor";
-                                    $nit = '830127647';
+                                    $nit = $_SESSION["usuario"];
                                     
                                     if(isset($_GET["fechaInicial"])){
 
@@ -86,16 +87,16 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                         echo '<tr>
 
                                                         <td>' . ($key + 1) . '</td>
-                                                        <td>' . $value["fecha"] . '</td>
+                                                     
                                                         <td>' . $value["desc_item"] . '</td>
 
                                                         <td>' . number_format($value["totalVendido"], 0) . '</td>
                                                         <td>  
                                                         <div class="btn-group">
                                               
-                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'">
+                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'" producto = "'.$value["desc_item"].'">
             
-                                                          <i class="fa fa-eye"></i>
+                                                          <i class=" fas fa-search-plus"></i>
                                   
                                                         </button></td>
 
@@ -121,7 +122,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Detalle del Producto</h4>
+            <h4 class="modal-title">Detalle del Producto: <span id="nombreProducto"></span></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="POST">
@@ -129,7 +130,6 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                     <table id="" class="table tableSubQuery">
                         <thead>
                             <tr>
-                                <th>Fecha</th>
                                 <th>Centro O.</th>
                                 <th>Unidades</th>
                                

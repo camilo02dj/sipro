@@ -23,4 +23,14 @@ class ControladorVentas
 
 		return $respuesta;
 	}
+
+	static public function ctrFechaMaxima()
+	{
+
+		$tabla = "vtas_proveedor";
+
+		$respuesta = ModeloVentas::mldFechaMaxima($tabla);
+
+		return $respuesta;
+	}
 }
