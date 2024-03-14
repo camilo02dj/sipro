@@ -4,22 +4,22 @@ class ControladorVentas
 {
 
 
-	static public function ctrMostrarVentas($fechaInicial, $fechaFinal, $item, $valor)
+	static public function ctrMostrarVentas($nit, $fechaInicial, $fechaFinal)
 	{
 
 		$tabla = "vtas_proveedor";
 
-		$respuesta = ModeloVentas::mdlMostrarVentas($tabla, $fechaInicial, $fechaFinal, $item, $valor);
+		$respuesta = ModeloVentas::mdlMostrarVentas($tabla, $nit, $fechaInicial, $fechaFinal);
 
 		return $respuesta;
 	}
 
-	static public function ctrDetalleVentas($fechaInicial, $fechaFinal, $item, $valor)
+	static public function ctrDetalleVentas( $item, $nit, $fechaInicial, $fechaFinal)
 	{
 
 		$tabla = "vtas_proveedor";
 
-		$respuesta = ModeloVentas::mdlDetalleVentas($tabla, $fechaInicial, $fechaFinal, $item, $valor);
+		$respuesta = ModeloVentas::mdlDetalleVentas($tabla,  $item, $nit, $fechaInicial, $fechaFinal);
 
 		return $respuesta;
 	}

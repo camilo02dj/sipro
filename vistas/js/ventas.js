@@ -43,10 +43,12 @@ window.location = "ventas";
 //Mostrar Detalle Productos
 $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
     var item = $(this).attr("item");
+    var proveedor = $(this).attr("proveedor");
     var fechaInicial = $(this).attr("fechaInicial");
     var fechaFinal = $(this).attr("fechaFinal");
     var datos = new FormData();
     datos.append("item", item);
+    datos.append("proveedor", proveedor);
     datos.append("fechaInicial", fechaInicial);
     datos.append("fechaFinal", fechaFinal);
 

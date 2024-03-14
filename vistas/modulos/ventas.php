@@ -53,6 +53,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>fecha</th>
                                         <th>Producto</th>
                                         <th>Unidades</th>
                                         <th>Acciones</th>
@@ -61,8 +62,8 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $item = "item_proveedor";
-                                    $valor = '830127647';
+                                    //$item ="item_proveedor";
+                                    $nit = '830127647';
                                     
                                     if(isset($_GET["fechaInicial"])){
 
@@ -77,7 +78,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                         $fechaFinal = null;
                                     }
 
-                                    $ventas = ControladorVentas::ctrMostrarVentas($fechaInicial, $fechaFinal, $item, $valor);
+                                    $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
 
                                     foreach ($ventas as $key => $value) {
 
@@ -85,14 +86,14 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                         echo '<tr>
 
                                                         <td>' . ($key + 1) . '</td>
-
+                                                        <td>' . $value["fecha"] . '</td>
                                                         <td>' . $value["desc_item"] . '</td>
 
                                                         <td>' . number_format($value["totalVendido"], 0) . '</td>
                                                         <td>  
                                                         <div class="btn-group">
                                               
-                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '">
+                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'">
             
                                                           <i class="fa fa-eye"></i>
                                   
