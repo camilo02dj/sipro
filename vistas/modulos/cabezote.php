@@ -119,7 +119,7 @@
                 </a>
                 <!-- End mobile menu toggle-->
             </li>
-            <!-- <li><a class="titleCo2cero text-white nav-link dropdown-toggle arrow-none waves-effect waves-light">Sucampo Sullanta SAS</a style="font-size: 20px;"></li> -->
+            <li><a class="titleCo2cero text-white nav-link dropdown-toggle arrow-none waves-effect waves-light">SIPRO - Sistema de Informacion para Proveedores</a style="font-size: 20px;"></li>
             
         </ul>
         <div class="clearfix"></div>
