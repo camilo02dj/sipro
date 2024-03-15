@@ -30,13 +30,13 @@
                         <!-- parte izquierda del login donde va la imagen -->
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block">
-                                <img src="vistas/img/logo-login.jpeg" style="width:100%; height:100%;">
+                                <img src="vistas/img/sipro.webp" style="width:100%; height:100%;">
                             </div>
                             <!-- final de la parte izquierda del login donde va la imagen -->
                             <!-- parte derecha del login donde va el formulario -->
                             <div class="col-lg-6 p-5" style="height:auto; display:flex; justify-content:center; align-items:center;">
                                 <div class="text-center">
-                                    <h1 id="titulo" class="h2 text-gray-900 mb-3">Bienvenido</h1>
+                                    <h1 id="titulo" class="h2 text-gray-900 mb-3">Bienvenido a SIPRO</h1>
                                     <form method="post" class="user">
                                         <div class="mb-3">
                                             <input type="text" name="ingUsuario" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese usuario" style="font-size:20px; border:darkgray 1px solid; color:black; ">

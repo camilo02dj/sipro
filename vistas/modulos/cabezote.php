@@ -1,5 +1,5 @@
             <!-- Topbar Start -->
-	<div class="navbar-custom" style="background-image: linear-gradient(to right, #3bcb8a, #2fac73, #228e5c, #167147, #095533);">
+	<div class="navbar-custom">
     <div class="container-fluid">
         <ul class="list-unstyled topnav-menu float-end mb-0">
 
@@ -82,21 +82,21 @@
         <div class="logo-box">
             <a href="index.html" class="logo logo-dark text-center">
                 <span class="logo-sm">
-                    <img src="vistas/assets/images/logo sucampo.png" alt="" height="22">
+                    <img src="vistas/assets/images/sucampo_sm.webp" alt="" height="22">
                     <!-- <span class="logo-lg-text-light">UBold</span> -->
                 </span>
                 <span class="logo-lg">
-                    <img src="vistas/assets/images/logo sucampo.png" alt="" height="20">
+                    <img src="vistas/assets/images/Logo_sucampo.webp" alt="" height="20">
                     <!-- <span class="logo-lg-text-light">U</span> -->
                 </span>
             </a>
     
             <a href="inicio" class="logo logo-light text-center">
                 <span class="logo-sm">
-                    <img src="vistas/assets/images/logo-sucampo.ico" alt="" height="">
+                    <img src="vistas/assets/images/sucampo_sm.webp" alt="" height="50">
                 </span>
                 <span class="logo-lg">
-                <img src="vistas/img/logo_sucampo.webp" alt="" height="">
+                <img src="vistas/assets/images/logo_sucampo.webp" alt="" height="80">
                 </span>
             </a>
         </div>

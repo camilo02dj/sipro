@@ -1,6 +1,42 @@
 .page-item.active .page-link {
     z-index: 3;
     color: #fff;
-    background-color: #1abc9c;
-    border-color: #1abc9c;
+    background-color: #008a11;
+    border-color: #008a11;
+}
+element.style {
+    font-size: 20px;
+    width: 100%;
+    background-color: #008a11;
+    color: white;
+    font-weight: bold;
+}
+.navbar-custom {
+    background-color: #263C49;
+    box-shadow: 0 0 35px 0 rgba(39,60,73,.15);
+    padding: 0 10px 0 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: 70px;
+    z-index: 1001;
+}
+.btn-success {
+    color: #fff;
+    background-color: #008A11;
+    border-color: #008A11;
+}
+.btn-secondary {
+    color: #fff;
+    background-color: #263c49;
+    border-color: #263C49;
+}
+.daterangepicker td.active, .daterangepicker td.active:hover {
+    background-color: #AECC02;
+    border-color: transparent;
+    color: #fff;
+}
+.daterangepicker .ranges li.active {
+    background-color: #aecc02;
+    color: #fff;
 }
