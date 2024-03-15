@@ -94,7 +94,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                                         <td>  
                                                         <div class="btn-group">
                                               
-                                                        <button class="btn btn-xs btn-info btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'" producto = "'.$value["desc_item"].'">
+                                                        <button class="btn btn-xs btn-success btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'" producto = "'.$value["desc_item"].'">
             
                                                           <i class=" fas fa-search-plus"></i>
                                   
