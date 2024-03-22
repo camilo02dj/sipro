@@ -4,7 +4,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
 
     echo '<script>
   
-      window.location = "inicio";
+      window.location = "ventas";
   
     </script>';
 

@@ -132,41 +132,6 @@ $("#nuevoUsuario").change(function() {
     })
 })
 
-/*=============================================
-REVISAR SI EL COMERCIAL YA ESTÁ REGISTRADO
-=============================================*/
-
-$("#nuevoDocumento").change(function() {
-
-        $(".alert").remove();
-
-        var documento = $(this).val();
-
-        var datos = new FormData();
-        datos.append("validarDocumento", documento);
-
-        $.ajax({
-            url: "ajax/usuarios.ajax.php",
-            method: "POST",
-            data: datos,
-            cache: false,
-            contentType: false,
-            processData: false,
-            dataType: "json",
-            success: function(respuesta) {
-
-                if (respuesta) {
-
-                    $("#mensajeRespuestaDocumento").html('<div class="alert alert-warning">Este documento ya existe en la base de datos</div>');
-
-                    $("#nuevoDocumento").val("");
-
-                }
-
-            }
-
-        })
-    })
     /*=============================================
     ELIMINAR USUARIO
     =============================================*/

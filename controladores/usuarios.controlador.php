@@ -4,29 +4,21 @@ class ControladorUsuarios
 {
 
 	/*=============================================
-	INGRESO DE USUARIO
-	=============================================*/
+	   INGRESO DE USUARIO
+	   =============================================*/
 
 	static public function ctrIngresoUsuario()
 	{
-
-		if (isset($_POST["ingUsuario"])) {
-
+		if (isset ($_POST["ingUsuario"])) {
 			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"])) {
-
 				$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
 				$tabla = "usuarios";
-
 				$item = "usuario";
 				$valor = $_POST["ingUsuario"];
-
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
 
-				if (is_array($respuesta) &&  $respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar) {
-
+				if (is_array($respuesta) && $respuesta["usuario"] == $_POST["ingUsuario"] && $respuesta["password"] == $encriptar) {
 					if ($respuesta["estado"] == 1) {
-
 						$_SESSION["iniciarSesion"] = "ok";
 						$_SESSION["id"] = $respuesta["id"];
 						$_SESSION["nombre"] = $respuesta["nombre"];
@@ -34,73 +26,69 @@ class ControladorUsuarios
 						$_SESSION["cargo"] = $respuesta["cargo"];
 						$_SESSION["perfil"] = $respuesta["perfil"];
 
-						/*=============================================
-						REGISTRAR FECHA PARA SABER EL ÚLTIMO LOGIN
-						=============================================*/
-
 						date_default_timezone_set('America/Bogota');
-
 						$fecha = date('Y-m-d');
 						$hora = date('H:i:s');
-
 						$fechaActual = $fecha . ' ' . $hora;
 
 						$item1 = "ultimo_login";
 						$valor1 = $fechaActual;
-
 						$item2 = "id";
 						$valor2 = $respuesta["id"];
 
 						$ultimoLogin = ModeloUsuarios::mdlActualizarUsuario($tabla, $item1, $valor1, $item2, $valor2);
 
+						// Verificar si es la primera vez que el usuario inicia sesión
+						$primera_vez = $respuesta["primera_vez"]; // Asumimos que esta línea obtiene correctamente el valor de 'primera_vez'
+
 						if ($ultimoLogin == "ok") {
-
-							echo '<script>
-
-								window.location = "ventas";
-
-							</script>';
+							// Si es la primera vez (primera_vez == 0), redirigir a cambiar contraseña
+							if ($primera_vez == 0) {
+								echo '<script>window.location = "cambiar-pass";</script>';
+							} else {
+								// Si no es la primera vez, continuar a la página de ventas
+								echo '<script>window.location = "ventas";</script>';
+							}
 						}
 					} else {
-
 						echo '<script>
-						document.addEventListener("DOMContentLoaded", function() {
-							Swal.fire({
-							position: "top-end",
-							icon: "error",
-							title: "El usuario no esta activado",
-							showConfirmButton: false,
-							timer: 1500
-							});
-						});
-						</script>';
+                    document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "El usuario no esta activado",
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                    });
+                    </script>';
 					}
 				} else {
-
 					echo '<script>
-					document.addEventListener("DOMContentLoaded", function() {
-							Swal.fire({
-							position: "top-end",
-							icon: "error",
-							title: "Error de usuario y/o contraseña",
-							showConfirmButton: false,
-							timer: 1500
-							});
-						});
-						</script>';
+                document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "error",
+                        title: "Error de usuario y/o contraseña",
+                        showConfirmButton: false,
+                        timer: 1500
+                        });
+                    });
+                    </script>';
 				}
 			}
 		}
 	}
 
+
 	/*=============================================
-	REGISTRO DE USUARIO
-	=============================================*/
+	   REGISTRO DE USUARIO
+	   =============================================*/
 
 	static public function ctrCrearUsuario()
 	{
 
-		if (isset($_POST["nuevoUsuario"])) {
+		if (isset ($_POST["nuevoUsuario"])) {
 
 			if (
 				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
@@ -120,7 +108,7 @@ class ControladorUsuarios
 					"usuario" => $_POST["nuevoUsuario"],
 					"password" => $encriptar,
 					"perfil" => $_POST["nuevoPerfil"],
-					"ultimo_login"=> '1900-01-01'
+					"ultimo_login" => '1900-01-01'
 				);
 
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
@@ -133,20 +121,20 @@ class ControladorUsuarios
 					$pass = $_POST["password"];
 
 					$destinatario = "$email";
-					$asunto = "Acceso a plataforma Sanidad Vegetal Cruz Verde ";
+					$asunto = "Acceso a SIPRO - SucampoSullanta SAS ";
 					$cuerpo = '
 				<table style="width: 500px; margin: auto; text-align: left; font-family: sans-serif;">
 					<tr>
-						<td><img style="width: 130px;" src="https://app.sanidadvegetalcruzverde.com/vistas/img/logo_avion.jpg" alt=""></td>
+						<td><img style="width: 130px;" src="https://servicios.sucamposullanta.com.co/vistas/img/Sucampo-Horizontal.svg" alt=""></td>
 					</tr>
 					<tr>
-						<td style="font-size: 30px;">Sanidad Vegetal CRUZ VERDE</td>
+						<td style="font-size: 30px;">SIPRO - SucampoSullanta</td>
 					</tr>
 					<tr>
 						<td><hr></td>
 					</tr>
 					<tr>
-						<td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al equipo Sanidad Vegetal Cruz Verde!, se te ha asignado un usuario para el acceso a la plataforma:</td>
+						<td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al sistema SIPRO - La plataforma web que Sucampo-Sullanta SAS pone a sus dispocicion para que consulte las unidades vendidas. Se te ha asignado un usuario para el acceso a la plataforma:</td>
 					</tr>
 					<tr>
 						<td>Usuario:' . $usuario . '</td>
@@ -156,7 +144,7 @@ class ControladorUsuarios
 					</tr>
 					<tr>
 						<td><a style="background: #01d06a; color: #fff; padding: 10px 15px; margin: 23px auto; width: 150px; border: 2px solid #00a554; text-decoration: none; display: block; border-radius: 8px; text-align: center; font-size: 20px;
-							" href="https://app.sanidadvegetalcruzverde.com/">Ir Aplicacion</a></td>
+							" href="https://servicios.sucamposullanta.com.co/sipro/">Ir Aplicacion</a></td>
 					</tr>
 				</table>';
 					//para el envío en formato HTML 
@@ -164,7 +152,7 @@ class ControladorUsuarios
 					$headers .= "Content-type: text/html; charset=iso-8859-1\r\n";
 
 					//dirección del remitente 
-					$headers .= "From: Sistema Cartera Sucampo Sullanta SAS <info@sanidadvegetalcruzverde.com>\r\n";
+					$headers .= "From: SIPRO - Sistema de Informacion Proveedores <sucampo@sucamposullanta.com.co>\r\n";
 
 					mail($destinatario, $asunto, $cuerpo, $headers);
 
@@ -204,8 +192,8 @@ class ControladorUsuarios
 	}
 
 	/*=============================================
-	MOSTRAR USUARIO
-	=============================================*/
+	   MOSTRAR USUARIO
+	   =============================================*/
 
 	static public function ctrMostrarUsuarios($item, $valor)
 	{
@@ -218,13 +206,13 @@ class ControladorUsuarios
 	}
 
 	/*=============================================
-	EDITAR USUARIO
-	=============================================*/
+	   EDITAR USUARIO
+	   =============================================*/
 
 	static public function ctrEditarUsuario()
 	{
 
-		if (isset($_POST["editarUsuario"])) {
+		if (isset ($_POST["editarUsuario"])) {
 
 			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
 
@@ -261,7 +249,7 @@ class ControladorUsuarios
 				}
 
 				$datos = array(
-					
+
 					"nombre" => $_POST["editarNombre"],
 					"usuario" => $_POST["editarUsuario"],
 					"password" => $encriptar,
@@ -310,13 +298,13 @@ class ControladorUsuarios
 	}
 
 	/*=============================================
-	BORRAR USUARIO
-	=============================================*/
+	   BORRAR USUARIO
+	   =============================================*/
 
 	static public function ctrBorrarUsuario()
 	{
 
-		if (isset($_GET["idUsuario"])) {
+		if (isset ($_GET["idUsuario"])) {
 
 			$tabla = "usuarios";
 			$datos = $_GET["idUsuario"];
@@ -352,70 +340,73 @@ class ControladorUsuarios
 	}
 
 	/*=============================================
-ACTUALIZAR CONTRASEÑA
-=============================================*/
+   ACTUALIZAR CONTRASEÑA
+   =============================================*/
 
-	static public function ctrActualizarPass()
-	{
-
-		if (isset($_POST["nuevoPassword"])) {
-
-				$tabla = "usuarios";
-
-				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-				$passworAnterior = crypt($_POST["passwordAnterior"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
-
-				$usuario = $_SESSION["usuario"];
-
-				$passBd = ModeloUsuarios::mdlPassActual("usuarios", "usuario", $usuario);
-
-				$pass= $passBd["password"];
-
-
-				if ($pass != $passworAnterior) {
-
-					echo '<script>
-					document.addEventListener("DOMContentLoaded", function() {
-						Swal.fire(
-							"Error de Validacion",
-							"La contraseña anterior no es valida",
-							"error").then(function(result) {
-							if (result.value) {
-								window.location = "cambiar-pass";
-							}
-					
-						});
-					
-					})
-					</script>';
-				} else {
-
-					$datos = array(
-						"usuario" => $_POST["nuevoUsuario"],
-						"password" => $encriptar
-					);
-
-					$respuesta = ModeloUsuarios::mdlCambiarPass($tabla, $datos);
-
-					if ($respuesta == "ok") {
-
-						echo '<script>
-						document.addEventListener("DOMContentLoaded", function() {
-							Swal.fire(
-								"Cambio de contraseña OK",
-								"Se ha cambiado la contraseña exitosamente",
-								"success").then(function(result) {
-								if (result.value) {
-									window.location = "salir";
-								}
-						
-							});
-						
-						})
-						</script>';
-					}
-				}
-			
-		}
-	}
+   static public function ctrActualizarPass()
+   {
+	   if (isset($_POST["nuevoPassword"])) {
+		   $tabla = "usuarios";
+		   $encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+		   $passworAnterior = crypt($_POST["passwordAnterior"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+		   $usuario = $_SESSION["usuario"];
+		   $passBd = ModeloUsuarios::mdlPassActual("usuarios", "usuario", $usuario);
+		   $pass = $passBd["password"];
+   
+		   // Verificar que la contraseña antigua es correcta
+		   if ($pass != $passworAnterior) {
+			   echo '<script>
+				   document.addEventListener("DOMContentLoaded", function() {
+					   Swal.fire(
+						   "Error de Validación",
+						   "La contraseña anterior no es válida",
+						   "error"
+					   ).then(function(result) {
+						   if (result.value) {
+							   window.location = "cambiar-pass";
+						   }
+					   });
+				   });
+				   </script>';
+		   } else {
+			   // Verificar que la nueva contraseña no sea igual a la antigua
+			   if ($pass == $encriptar) {
+				   echo '<script>
+				   document.addEventListener("DOMContentLoaded", function() {
+					   Swal.fire(
+						   "Error",
+						   "La nueva contraseña no puede ser igual a la contraseña anterior",
+						   "error"
+					   );
+				   });
+				   </script>';
+			   } else {
+				   // Proceder con el cambio de contraseña
+				   $datos = array(
+					   "usuario" => $_SESSION["usuario"], // Asegúrate de que este sea el nombre de usuario correcto a actualizar
+					   "password" => $encriptar
+				   );
+   
+				   $respuesta = ModeloUsuarios::mdlCambiarPass($tabla, $datos);
+   
+				   if ($respuesta == "ok") {
+					   echo '<script>
+						   document.addEventListener("DOMContentLoaded", function() {
+							   Swal.fire(
+								   "Cambio de contraseña OK",
+								   "Se ha cambiado la contraseña exitosamente, vuelve a iniciar sesión con tu nueva contraseña",
+								   "success"
+							   ).then(function(result) {
+								   if (result.value) {
+									   window.location = "salir";
+								   }
+							   });
+						   });
+						   </script>';
+				   }
+			   }
+		   }
+	   }
+   }
+   
 }

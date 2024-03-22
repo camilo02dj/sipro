@@ -1,10 +1,11 @@
 <?php
-
-if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
+$consulta = ControladorUsuarios::ctrMostrarUsuarios("id", $_SESSION["id"]);
+$primera_vez = $consulta["primera_vez"];
+if ($primera_vez !=1) {
 
     echo '<script>
 
-    window.location = "inicio";
+    window.location = "cambiar-pass";
 
   </script>';
 
