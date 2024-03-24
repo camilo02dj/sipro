@@ -98,7 +98,7 @@ $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
             respuesta.forEach(function(item) {
                 table.row.add([
                     item["centro_operacion"],
-                    item["totalVendido"]
+                    number_format(item["totalVendido"],0)
                 ]);
             });
     

@@ -85,8 +85,16 @@ if ($primera_vez != 1) {
                                         $fechaFinal = null;
                                     }
 
-                                    $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
+                                    if($_SESSION["perfil"] != "Estandar"){
 
+                                        $ventas = ControladorVentas::ctrMostrarVentasT($fechaInicial, $fechaFinal);
+
+
+                                    }else{
+                                        $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
+                                    }
+
+                                   
                                     foreach ($ventas as $key => $value) {
 
 

@@ -7,9 +7,10 @@ require_once "../modelos/centros.modelo.php";
 
 class TablaVentas {
     
+    public $proveedor;
     public function mostrarTablaVentas() {
         $item = "item_proveedor";
-        $valor = '830127647';
+        $valor = $this->proveedor;
 
         $Ventas = ControladorVentas::ctrmostrarVentas($item, $valor);
 

@@ -26,7 +26,6 @@ $(".tablas").on("click", ".btnEditarUsuario", function() {
             $("#editarPerfil").val(respuesta["perfil"]);
             $("#passwordActual").val(respuesta["password"]);
             $("#editarEmail").val(respuesta["email"]);
-            $("#editarDocumento").val(respuesta["documento"]);
 
         }
 

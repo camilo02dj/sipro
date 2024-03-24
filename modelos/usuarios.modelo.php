@@ -4,9 +4,6 @@ require_once "conexion.php";
 
 class ModeloUsuarios{
 
-	/*=============================================
-	MOSTRAR USUARIOS
-	=============================================*/
 
 	static public function mdlMostrarUsuarios($tabla, $item, $valor){
 
@@ -30,16 +27,11 @@ class ModeloUsuarios{
 
 		}
 	
-		
-		$stmt -> close();
 
 		$stmt = null;
 
 	}
 
-	/*=============================================
-	REGISTRO DE USUARIO
-	=============================================*/
 
 	static public function mdlIngresarUsuario($tabla, $datos){
 
@@ -63,15 +55,10 @@ class ModeloUsuarios{
 		
 		}
 
-		$stmt->close();
-		
 		$stmt = null;
 
 	}
 
-	/*=============================================
-	EDITAR USUARIO
-	=============================================*/
 
 	static public function mdlEditarUsuario($tabla, $datos){
 	
@@ -96,7 +83,6 @@ class ModeloUsuarios{
 
 		}
 
-		$stmt -> close();
 
 		$stmt = null;
 
@@ -123,7 +109,6 @@ class ModeloUsuarios{
 
 		}
 
-		$stmt -> close();
 
 		$stmt = null;
 
@@ -149,7 +134,6 @@ class ModeloUsuarios{
 
 		}
 
-		$stmt -> close();
 
 		$stmt = null;
 
@@ -180,7 +164,6 @@ class ModeloUsuarios{
 
 		}
 
-		$stmt -> close();
 
 		$stmt = null;
 

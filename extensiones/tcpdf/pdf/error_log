@@ -1,9 +1,0 @@
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Undefined array key "codigo" in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 278
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 33
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 34
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 39
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 46
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 129
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 140
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  foreach() argument must be of type array|object, null given in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 201
-[07-Nov-2023 16:12:17 America/New_York] PHP Warning:  Trying to access array offset on value of type bool in /home/repupwzr/app.sanidadvegetalcruzverde.com/extensiones/tcpdf/pdf/entrada.php on line 243

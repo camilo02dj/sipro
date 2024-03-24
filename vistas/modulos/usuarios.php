@@ -135,7 +135,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                         </div>
                         <div class="col-md-6">
                             <div class="mb-2">
-                                <label for="field-2" class="form-label">Cargo</label>
+                                <label for="field-2" class="form-label">Responsable</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="ti-id-badge"></i></div>
                                     <input type="text" class="form-control" name="nuevoCargo" placeholder="Cargo" required>
@@ -188,8 +188,10 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                 <label for="field-3" class="form-label">Perfil</label>
                                 <select class="form-control" name="nuevoPerfil">
                                     <option>Seleccione Perfil</option>
-                                    <option value="Administrador">Administrador</option>
                                     <option value="Estandar">Estandar</option>
+                                    <option value="Especial">Especial</option>
+                                    <option value="Administrador">Administrador</option>
+                                    
 
                                 </select>
                             </div>
@@ -326,16 +328,3 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
 $eliminarUsuario = new ControladorUsuarios();
 $eliminarUsuario->ctrBorrarUsuario();
 ?>
-<style>
-    .page-item.active .page-link {
-    background-color: #2fac73; 
-    border-color: #2fac73;
-    color: #fff; 
-}
-.btn-group{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-</style>

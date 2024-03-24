@@ -33,4 +33,32 @@ class ControladorVentas
 
 		return $respuesta;
 	}
+
+
+//////////////////////////////////////////////////////
+
+static public function ctrMostrarVentasT($fechaInicial, $fechaFinal)
+	{
+
+		$tabla = "vtas_proveedor";
+
+		$respuesta = ModeloVentas::mdlMostrarVentasT($tabla, $fechaInicial, $fechaFinal);
+
+		return $respuesta;
+	}
+
+	static public function ctrDetalleVentasT( $item, $fechaInicial, $fechaFinal)
+	{
+
+		$tabla = "vtas_proveedor";
+
+		$respuesta = ModeloVentas::mdlDetalleVentasT($tabla,  $item, $fechaInicial, $fechaFinal);
+
+		return $respuesta;
+	}
+
+
+
+
+
 }
