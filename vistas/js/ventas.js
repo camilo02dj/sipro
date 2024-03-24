@@ -71,7 +71,24 @@ $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
         processData: false,
         dataType: "json",
         success: function(respuesta) {
-            var table = $(".tableSubQuery").DataTable();
+            var table = $(".tableSubQuery").DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    {
+                        extend: 'excel',
+                        title: function() {
+                            return 'Detalle del Producto: ' + $("#nombreProducto").text();
+                        }
+                    },
+                    {
+                        extend: 'pdf',
+                        title: function() {
+                            return 'Detalle del Producto: ' + $("#nombreProducto").text();
+                        }
+                    }
+                ]
+            });
+            
             table.clear(); // Limpia los datos existentes antes de añadir los nuevos
     
             // Asumiendo que la respuesta es un objeto que incluye el nombre del producto bajo la clave 'nombreProducto'

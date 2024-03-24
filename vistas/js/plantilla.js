@@ -3,8 +3,12 @@ Data Table
 =============================================*/
 
 $(".tablas").DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+        'excel', 'pdf'
+    ],
     "order": [
-        [0, "desc"]
+        [0, "asc"]
     ], 
     "language": {
 

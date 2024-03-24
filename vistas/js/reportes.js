@@ -5,6 +5,10 @@ $('.tablasR').DataTable( {
     "deferRender": true,
 	"retrieve": true,
 	"processing": true,
+	dom: 'Bfrtip',
+    buttons: [
+        'excel', 'pdf'
+    ],
 	 "language": {
 
 			"sProcessing":     "Procesando...",
