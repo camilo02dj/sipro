@@ -164,7 +164,7 @@ class ModeloUsuarios{
 
 	static public function mdlCambiarPass($tabla, $datos){
 	
-		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET  password = :password WHERE usuario = :usuario");
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET  password = :password, primera_vez = 1 WHERE usuario = :usuario");
 
 		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
 		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);

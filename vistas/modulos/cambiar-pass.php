@@ -13,7 +13,7 @@
                                 <li class="breadcrumb-item active">Cambio Password</li>
                             </ol>
                         </div>
-                        <h4 class="page-title">Cambio Password</h4>
+                        <h4 class="page-title">Como es la primera vez que ingresas al sistema debes cambiar tu password!</h4>
                     </div>
                 </div>
             </div>

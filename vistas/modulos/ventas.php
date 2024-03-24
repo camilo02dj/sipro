@@ -1,10 +1,11 @@
 <?php
-
-if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
+$consulta = ControladorUsuarios::ctrMostrarUsuarios("id", $_SESSION["id"]);
+$primera_vez = $consulta["primera_vez"];
+if ($primera_vez != 1) {
 
     echo '<script>
 
-    window.location = "inicio";
+    window.location = "cambiar-pass";
 
   </script>';
 
@@ -20,37 +21,42 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
             <!-- start page title -->
             <div class="row">
                 <div class="col-12">
-                    <div class="page-title-box">
-                        <div class="page-title-right">
+                    <div class="page-title-box d-flex align-items-center justify-content-between">
+                        <div class="page-title-left">
                             <ol class="breadcrumb m-0">
                                 <li class="breadcrumb-item"><a href="inicio">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Informes</li>
                             </ol>
                         </div>
                         <?php
-                        $fechaM=ControladorVentas::ctrFechaMaxima();
-                        echo'<h4 class="page-title">Informacion Actualizada al: '.$fechaM["fechaMaxima"].' </h4>'?>
+                        $fechas = ControladorVentas::ctrFechaMaxima();
+                        ?>
+                        <small class="text-muted page-title">Datos desde:
+                            <?= $fechas["fechaMinima"] ?> hasta:
+                            <?= $fechas["fechaMaxima"] ?>
+                        </small>
                     </div>
                 </div>
             </div>
+
             <!-- end page title -->
 
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">
-                            
-                                <button class="btn btn-secondary waves-effect " id="btnDatarange">
 
-                                    <span>
-                                        <i class="fa fa-calendar"> </i> Rango de fecha
-                                    </span>
-                                    <i class="fa fa-caret-down"></i>
+                            <button class="btn btn-secondary waves-effect " id="btnDatarange">
 
-                                </button>
-                                <button class="btn btn-success cancelaRange">Cancelar Rango</button>
-                                <hr>
-                           
+                                <span>
+                                    <i class="fa fa-calendar"> </i> Rango de fecha
+                                </span>
+                                <i class="fa fa-caret-down"></i>
+
+                            </button>
+                            <button class="btn btn-success cancelaRange">Cancelar Rango</button>
+                            <hr>
+
                             <table id="" class="table table-sm table-striped dt-responsive tablas tablasDetallePro">
                                 <thead>
                                     <tr>
@@ -65,15 +71,15 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                     <?php
                                     //$item ="item_proveedor";
                                     $nit = $_SESSION["usuario"];
-                                    
-                                    if(isset($_GET["fechaInicial"])){
 
-                                      
+                                    if (isset ($_GET["fechaInicial"])) {
+
+
                                         $fechaInicial = $_GET["fechaInicial"];
                                         $fechaFinal = $_GET["fechaFinal"];
 
 
-                                    }else{
+                                    } else {
 
                                         $fechaInicial = null;
                                         $fechaFinal = null;
@@ -94,7 +100,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                                                         <td>  
                                                         <div class="btn-group">
                                               
-                                                        <button class="btn btn-xs btn-success btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="'.$fechaInicial.'" fechaFinal="'.$fechaFinal.'"  item="' . $value["item"] . '" proveedor="'.$value["item_proveedor"].'" producto = "'.$value["desc_item"].'">
+                                                        <button class="btn btn-xs btn-success btnVerDetalle" data-bs-toggle="modal" data-bs-target="#modalVerVentas" fechaInicial="' . $fechaInicial . '" fechaFinal="' . $fechaFinal . '"  item="' . $value["item"] . '" proveedor="' . $value["item_proveedor"] . '" producto = "' . $value["desc_item"] . '">
             
                                                           <i class=" fas fa-search-plus"></i>
                                   
@@ -118,11 +124,12 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
 </div>
 <!--MODAL MOSTRAR PROYECTOS ASOCIADOS -->
 
-<div id="modalVerVentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+<div id="modalVerVentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-            <h4 class="modal-title">Detalle del Producto: <span id="nombreProducto"></span></h4>
+                <h4 class="modal-title">Detalle del Producto: <span id="nombreProducto"></span></h4>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <form method="POST">
@@ -132,7 +139,7 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
                             <tr>
                                 <th>Centro O.</th>
                                 <th>Unidades</th>
-                               
+
 
                             </tr>
                         </thead>
@@ -143,7 +150,8 @@ if ($_SESSION["perfil"] == "Especial" and $_SESSION["perfil"] == "Vendedor") {
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary waves-effect"
+                        data-bs-dismiss="modal">Cancelar</button>
 
                 </div>
             </form>

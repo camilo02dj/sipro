@@ -96,7 +96,7 @@ class ModeloVentas
     {
 
 
-        $stmt = Conexion::conectar()->prepare("SELECT MAX(fecha) AS fechaMaxima FROM $tabla ");
+        $stmt = Conexion::conectar()->prepare("SELECT MAX(fecha) AS fechaMaxima, MIN(fecha) AS fechaMinima FROM $tabla ");
 
         $stmt->execute();
 

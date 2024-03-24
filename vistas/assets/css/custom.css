@@ -40,3 +40,7 @@ element.style {
     background-color: #aecc02;
     color: #fff;
 }
+a {
+    color: #008a11;
+    text-decoration: none;
+}

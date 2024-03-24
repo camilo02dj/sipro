@@ -3,7 +3,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
-                                <script>document.write(new Date().getFullYear())</script> &copy; Reporte Cartera - Version 1.0 - Desarrollado por: <a  href="https://www.sucamposullanta.com" target="_blank">Tics - SucampoSullanta</a> 
+                                <script>document.write(new Date().getFullYear())</script> &copy; SIPRO - Version 1.0 - Desarrollado por: <a  href="https://www.sucamposullanta.com" target="_blank">Tics - SucampoSullanta</a> 
                             </div>
                             <!-- <div class="col-md-6">
                                 <div class="text-md-end footer-links d-none d-sm-block">
