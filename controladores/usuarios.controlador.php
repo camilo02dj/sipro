@@ -1,5 +1,9 @@
 <?php
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 class ControladorUsuarios
 {
 
@@ -125,7 +129,7 @@ class ControladorUsuarios
 						$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
 						$mail->Port = 587;
 
-						$mail->setFrom('sipro@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
+						$mail->setFrom('camilohernandez@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
 						$mail->addAddress($_POST["nuevoEmail"], $_POST["nuevoNombre"]);
 
 						$mail->isHTML(true);

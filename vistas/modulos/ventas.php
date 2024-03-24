@@ -72,29 +72,22 @@ if ($primera_vez != 1) {
                                     //$item ="item_proveedor";
                                     $nit = $_SESSION["usuario"];
 
-                                    if (isset ($_GET["fechaInicial"])) {
+                                    if (isset($_GET["fechaInicial"])) {
 
 
                                         $fechaInicial = $_GET["fechaInicial"];
                                         $fechaFinal = $_GET["fechaFinal"];
-
-
                                     } else {
 
                                         $fechaInicial = null;
                                         $fechaFinal = null;
                                     }
 
-                                    if($_SESSION["perfil"] != "Estandar"){
 
-                                        $ventas = ControladorVentas::ctrMostrarVentasT($fechaInicial, $fechaFinal);
+                                    $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
 
 
-                                    }else{
-                                        $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
-                                    }
 
-                                   
                                     foreach ($ventas as $key => $value) {
 
 
@@ -132,8 +125,7 @@ if ($primera_vez != 1) {
 </div>
 <!--MODAL MOSTRAR PROYECTOS ASOCIADOS -->
 
-<div id="modalVerVentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-    aria-hidden="true" style="display: none;">
+<div id="modalVerVentas" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -158,8 +150,7 @@ if ($primera_vez != 1) {
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary waves-effect"
-                        data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cancelar</button>
 
                 </div>
             </form>
