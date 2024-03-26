@@ -120,14 +120,14 @@ class ControladorUsuarios
 						$nombre = $_POST["nuevoNombre"];
 						$usuario = $_POST["nuevoUsuario"];
 						$pass = $_POST["password"];
-						$mail->SMTPDebug = 3; // Disable Debugging in production
+						$mail->SMTPDebug = 0; // Disable Debugging in production
 						$mail->isSMTP();
 						$mail->Host = 'webmail.sucampo.com.co';
 						$mail->SMTPAuth = true;
 						$mail->Username = 'camilohernandez@sucampo.com.co';
 						$mail->Password = 'W0lf4ng.2145'; // Cambia 'tu_contraseña' por la contraseña real
 						$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-						$mail->Port = 587;
+						$mail->Port = 25;
 
 						$mail->setFrom('camilohernandez@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
 						$mail->addAddress($_POST["nuevoEmail"], $_POST["nuevoNombre"]);
@@ -136,7 +136,7 @@ class ControladorUsuarios
 						$mail->Subject = 'Acceso a SIPRO - SucampoSullanta SAS';
 						$mail->Body = '<table style="width: 500px; margin: auto; text-align: left; font-family: sans-serif;">
 						   <tr>
-							   <td><img style="width: 130px;" src="https://servicios.sucamposullanta.com.co/vistas/img/Sucampo-Horizontal.svg" alt=""></td>
+							   <td><img style="width: 130px;" src="https://servicios.sucampo.com.co/vistas/img/logo.svg" alt=""></td>
 						   </tr>
 						   <tr>
 							   <td style="font-size: 30px;">SIPRO - SucampoSullanta</td>
@@ -145,7 +145,7 @@ class ControladorUsuarios
 							   <td><hr></td>
 						   </tr>
 						   <tr>
-							   <td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al sistema SIPRO - La plataforma web que Sucampo-Sullanta SAS pone a sus dispocicion para que consulte las unidades vendidas. Se te ha asignado un usuario para el acceso a la plataforma:</td>
+							   <td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al sistema SIPRO, la plataforma web desarrollada por Sucampo-Sullanta SAS, diseñada exclusivamente para facilitarte la consulta de las unidades vendidas. Para garantizar un acceso seguro y personalizado, se te ha asignado un usuario único para la plataforma.</td>
 						   </tr>
 						   <tr>
 							   <td>Usuario:' . $usuario . '</td>
@@ -155,7 +155,7 @@ class ControladorUsuarios
 						   </tr>
 						   <tr>
 							   <td><a style="background: #01d06a; color: #fff; padding: 10px 15px; margin: 23px auto; width: 150px; border: 2px solid #00a554; text-decoration: none; display: block; border-radius: 8px; text-align: center; font-size: 20px;
-								   " href="https://servicios.sucamposullanta.com.co/sipro/">Ir Aplicacion</a></td>
+								   " href="https://servicios.sucampo.com.co/sipro/">Ir Aplicacion</a></td>
 						   </tr>
 					   </table>';
 						//$mail->AltBody = 'Esta es la versión en texto plano del correo electrónico para clientes que no aceptan HTML';
