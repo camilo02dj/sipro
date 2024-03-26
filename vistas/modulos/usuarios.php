@@ -86,6 +86,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                             <div class="btn-group">
                                                 
                                                 <button class="btn btn-xs btn-success btnEditarUsuario" idUsuario="' . $value["id"] . '" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
                         
                                             </div>  
                         

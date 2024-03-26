@@ -120,7 +120,7 @@ class ControladorUsuarios
 						$nombre = $_POST["nuevoNombre"];
 						$usuario = $_POST["nuevoUsuario"];
 						$pass = $_POST["password"];
-						$mail->SMTPDebug = 0; // Disable Debugging in production
+						$mail->SMTPDebug = 3; // Disable Debugging in production
 						$mail->isSMTP();
 						$mail->Host = 'webmail.sucampo.com.co';
 						$mail->SMTPAuth = true;
