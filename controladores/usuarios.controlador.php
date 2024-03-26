@@ -13,7 +13,7 @@ class ControladorUsuarios
 
 	static public function ctrIngresoUsuario()
 	{
-		if (isset ($_POST["ingUsuario"])) {
+		if (isset($_POST["ingUsuario"])) {
 			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"])) {
 				$encriptar = crypt($_POST["ingPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 				$tabla = "usuarios";
@@ -93,10 +93,11 @@ class ControladorUsuarios
 
 	static public function ctrCrearUsuario()
 	{
-		if (isset ($_POST["nuevoUsuario"])) {
+		if (isset($_POST["nuevoUsuario"])) {
 			if (
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"]) &&
-				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoUsuario"])
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ .\-_]+$/', $_POST["nuevoNombre"]) &&
+				preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ .\-_]+$/', $_POST["nuevoUsuario"])
+
 			) {
 				$tabla = "usuarios";
 				$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
@@ -229,7 +230,7 @@ class ControladorUsuarios
 	static public function ctrEditarUsuario()
 	{
 
-		if (isset ($_POST["editarUsuario"])) {
+		if (isset($_POST["editarUsuario"])) {
 
 			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["editarNombre"])) {
 
@@ -321,7 +322,7 @@ class ControladorUsuarios
 	static public function ctrBorrarUsuario()
 	{
 
-		if (isset ($_GET["idUsuario"])) {
+		if (isset($_GET["idUsuario"])) {
 
 			$tabla = "usuarios";
 			$datos = $_GET["idUsuario"];
@@ -362,7 +363,7 @@ class ControladorUsuarios
 
 	static public function ctrActualizarPass()
 	{
-		if (isset ($_POST["nuevoPassword"])) {
+		if (isset($_POST["nuevoPassword"])) {
 			$tabla = "usuarios";
 			$encriptar = crypt($_POST["nuevoPassword"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
 			$passworAnterior = crypt($_POST["passwordAnterior"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
@@ -425,5 +426,4 @@ class ControladorUsuarios
 			}
 		}
 	}
-
 }
