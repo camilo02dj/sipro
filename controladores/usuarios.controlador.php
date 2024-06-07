@@ -137,7 +137,7 @@ class ControladorUsuarios
 						$mail->Subject = 'Acceso a SIPRO - SucampoSullanta SAS';
 						$mail->Body = '<table style="width: 500px; margin: auto; text-align: left; font-family: sans-serif;">
 						   <tr>
-							   <td><img style="width: 130px;" src="https://servicios.sucampo.com.co/vistas/img/logo.svg" alt=""></td>
+							   <td><img style="width: 130px;" src="https://servicios.sucampo.com.co/vistas/img/logo.jpg" alt=""></td>
 						   </tr>
 						   <tr>
 							   <td style="font-size: 30px;">SIPRO - SucampoSullanta</td>
@@ -146,7 +146,7 @@ class ControladorUsuarios
 							   <td><hr></td>
 						   </tr>
 						   <tr>
-							   <td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al sistema SIPRO, la plataforma web desarrollada por Sucampo-Sullanta SAS, diseñada exclusivamente para facilitarte la consulta de las unidades vendidas. Para garantizar un acceso seguro y personalizado, se te ha asignado un usuario único para la plataforma.</td>
+							   <td style="padding: 11px 0;">Hola, ' . $nombre . ' Bienvenido al sistema SIPRO, la plataforma web desarrollada por Sucampo-Sullanta SAS, desarrollada exclusivamente para facilitarte la consulta de las unidades vendidas. Para garantizar un acceso seguro y personalizado, se te ha asignado un usuario unico para la plataforma.</td>
 						   </tr>
 						   <tr>
 							   <td>Usuario:' . $usuario . '</td>

@@ -1,4 +1,4 @@
-$(function() { // Asegúrate de que el DOM esté completamente cargado
+$(function () { // Asegúrate de que el DOM esté completamente cargado
     function setButtonLabel(start, end) {
         // Formatea las fechas y actualiza el texto del botón utilizando el formato español
         let label = start.format('D [de] MMMM [de] YYYY') + ' - ' + end.format('D [de] MMMM [de] YYYY');
@@ -42,7 +42,7 @@ $(function() { // Asegúrate de que el DOM esté completamente cargado
         $('#btnDatarange span').html('Rango de Fechas');
     }
 
-    $(".cancelaRange").on("click", function() {
+    $(".cancelaRange").on("click", function () {
         localStorage.removeItem("capturarRango");
         localStorage.clear();
         window.location = "ventas";
@@ -51,7 +51,7 @@ $(function() { // Asegúrate de que el DOM esté completamente cargado
 });
 
 //Mostrar Detalle Productos
-$(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
+$(".tablasDetallePro").on("click", ".btnVerDetalle", function () {
     var item = $(this).attr("item");
     var proveedor = $(this).attr("proveedor");
     var fechaInicial = $(this).attr("fechaInicial");
@@ -70,40 +70,49 @@ $(".tablasDetallePro").on("click", ".btnVerDetalle", function() {
         contentType: false,
         processData: false,
         dataType: "json",
-        success: function(respuesta) {
+        success: function (respuesta) {
+            // Verifica si la tabla ya es un DataTable y la destruye si es necesario
+            if ($.fn.dataTable.isDataTable('.tableSubQuery')) {
+                $('.tableSubQuery').DataTable().clear().destroy();
+            }
+
+            // Ahora inicializa el DataTable como lo hiciste
             var table = $(".tableSubQuery").DataTable({
                 dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'excel',
-                        title: function() {
+                        title: function () {
                             return 'Detalle del Producto: ' + $("#nombreProducto").text();
                         }
                     },
                     {
                         extend: 'pdf',
-                        title: function() {
+                        title: function () {
                             return 'Detalle del Producto: ' + $("#nombreProducto").text();
                         }
                     }
                 ]
             });
-            
+
+
             table.clear(); // Limpia los datos existentes antes de añadir los nuevos
-    
+
             // Asumiendo que la respuesta es un objeto que incluye el nombre del producto bajo la clave 'nombreProducto'
             // Si la respuesta es un arreglo, asegúrate de acceder al nombre del producto correctamente
             $("#nombreProducto").text(respuesta[0]["desc_item"]); // Actualiza el título del modal con el nombre del producto
-    
+
             respuesta.forEach(function(item) {
+                let formateadoTotalVendido = new Intl.NumberFormat('es-ES').format(item["totalVendido"]);
                 table.row.add([
                     item["centro_operacion"],
-                    number_format(item["totalVendido"],0)
+                    formateadoTotalVendido,
                 ]);
             });
-    
+            
+
             table.draw(); // Redibuja la tabla con los nuevos datos
         }
     });
-    
+
 });
