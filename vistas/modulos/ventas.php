@@ -143,7 +143,7 @@ if ($primera_vez != 1) {
 
                             </tr>
                         </thead>
-                        <tbody id="detalleProducto">
+                        <tbody id="detalleProducto"> 
                         </tbody>
                     </table>
 
