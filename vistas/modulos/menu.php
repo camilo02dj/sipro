@@ -14,6 +14,13 @@
 						<span>Ventas</span>
 					</a>
 				</li>
+				<li>
+					<a href="inventarios" class="menu-item">
+					<i class="fas fa-warehouse"></i>
+
+						<span>Inventarios</span>
+					</a>
+				</li>
 
 				<?php
 				if ($_SESSION["perfil"] == "Administrador") {
