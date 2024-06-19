@@ -8,13 +8,13 @@ class ModeloVentas
 
         if ($fechaInicial == null) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor GROUP BY t.desc_item");
+            $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.referencia, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor GROUP BY t.referencia, t.desc_item");
             $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt->fetchAll();
         } else if ($fechaInicial == $fechaFinal) {
 
-            $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha like '%$fechaFinal%' GROUP BY t.desc_item");
+            $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.referencia, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha like '%$fechaFinal%' GROUP BY t.desc_item, t.referencia");
 
             $stmt->bindParam(":fecha", $fechaFinal, PDO::PARAM_STR);
             $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
@@ -32,13 +32,13 @@ class ModeloVentas
             $fechaFinalMasUno = $fechaFinal2->format("YYYY-mm-dd");
 
             if ($fechaFinalMasUno == $fechaActualMasUno) {
-                $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha BETWEEN :fechaInicial AND :fechaFinalMasUno GROUP BY t.desc_item");
+                $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item_proveedor, t.referencia, t.item, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha BETWEEN :fechaInicial AND :fechaFinalMasUno GROUP BY t.desc_item, t.referencia");
                 $stmt->bindParam(":fechaInicial", $fechaInicial, PDO::PARAM_STR);
                 $stmt->bindParam(":fechaFinalMasUno", $fechaFinalMasUno, PDO::PARAM_STR);
                 $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
                 $stmt->execute(); // Asegúrate de ejecutar la consulta dentro de esta condición
             } else {
-                $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item, t.item_proveedor, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha BETWEEN :fechaInicial AND :fechaFinal GROUP BY t.desc_item");
+                $stmt = Conexion::conectar()->prepare("SELECT t.co, t.item, t.item_proveedor, t.referencia, t.fecha, t.desc_item, c.centro_operacion, SUM(t.cantidad) AS totalVendido FROM $tabla AS t INNER JOIN centro_operacion AS c ON t.co = c.codigo WHERE item_proveedor = :item_proveedor AND t.fecha BETWEEN :fechaInicial AND :fechaFinal GROUP BY t.desc_item, t.referencia");
                 $stmt->bindParam(":fechaInicial", $fechaInicial, PDO::PARAM_STR);
                 $stmt->bindParam(":fechaFinal", $fechaFinal, PDO::PARAM_STR);
                 $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
@@ -103,6 +103,52 @@ class ModeloVentas
         return $stmt->fetch();
         //$stmt -> close();
 
-        $stmt = null;
+       
+    }
+
+    static public function mdlVentas($tabla, $nit, $fechaInicial, $fechaFinal)
+    {
+
+        if ($fechaInicial == null) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE item_proveedor = :item_proveedor ORDER BY fecha ASC");
+            $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
+            $stmt->execute();
+            return $stmt->fetchAll();
+        } else if ($fechaInicial == $fechaFinal) {
+
+            $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE item_proveedor = :item_proveedor AND fecha like '%$fechaFinal%' ORDER BY fecha ASC");
+
+            $stmt->bindParam(":fecha", $fechaFinal, PDO::PARAM_STR);
+            $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        } else {
+
+            $fechaActual = new DateTime();
+            $fechaActual->add(new DateInterval("P1D"));
+            $fechaActualMasUno = $fechaActual->format("YYYY-mm-dd");
+
+            $fechaFinal2 = new DateTime($fechaFinal);
+            $fechaFinal2->add(new DateInterval("P1D"));
+            $fechaFinalMasUno = $fechaFinal2->format("YYYY-mm-dd");
+
+            if ($fechaFinalMasUno == $fechaActualMasUno) {
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE item_proveedor = :item_proveedor AND fecha BETWEEN :fechaInicial AND :fechaFinalMasUno ORDER BY fecha ASC ");
+                $stmt->bindParam(":fechaInicial", $fechaInicial, PDO::PARAM_STR);
+                $stmt->bindParam(":fechaFinalMasUno", $fechaFinalMasUno, PDO::PARAM_STR);
+                $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
+                $stmt->execute(); // Asegúrate de ejecutar la consulta dentro de esta condición
+            } else {
+                $stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE item_proveedor = :item_proveedor AND fecha BETWEEN :fechaInicial AND :fechaFinal ORDER BY fecha ASC");
+                $stmt->bindParam(":fechaInicial", $fechaInicial, PDO::PARAM_STR);
+                $stmt->bindParam(":fechaFinal", $fechaFinal, PDO::PARAM_STR);
+                $stmt->bindParam(":item_proveedor", $nit, PDO::PARAM_STR);
+            }
+            $stmt->execute();
+
+            return $stmt->fetchAll();
+        }
     }
 }

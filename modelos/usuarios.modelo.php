@@ -178,4 +178,28 @@ class ModeloUsuarios{
 		return $stmt->fetch();
 		$stmt = null;
 	}
+
+	static public function mdlOlvidoPass($tabla, $datos){
+	
+		$stmt = Conexion::conectar()->prepare("UPDATE $tabla SET  password = :password, primera_vez = 0 WHERE usuario = :usuario");
+
+		$stmt -> bindParam(":usuario", $datos["usuario"], PDO::PARAM_STR);
+		$stmt -> bindParam(":password", $datos["password"], PDO::PARAM_STR);
+
+		
+		if($stmt -> execute()){
+
+			return "ok";
+		
+		}else{
+
+			return "error";	
+
+		}
+
+
+		$stmt = null;
+
+	}
+
 }

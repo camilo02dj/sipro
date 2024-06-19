@@ -426,4 +426,90 @@ class ControladorUsuarios
 			}
 		}
 	}
+
+
+
+	/*=============================================
+	  OLVIDO CONTRASEÑA
+	  =============================================*/
+
+	  static public function ctrOlvidoP()
+	  {
+		  if (isset($_POST["nuevoOlvido"])) {
+			  $tabla = "usuarios";
+			  $pass = bin2hex(random_bytes(3));  // Genera una contraseña de 6 caracteres aleatorios
+			  $encriptar = crypt($pass, '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+			  $usuario = $_POST["nuevoOlvido"];
+			  $consulta = ModeloUsuarios::mdlMostrarUsuarios("usuarios","usuario", $usuario);
+			  $email = $consulta["email"];
+	  
+			  $datos = array(
+				  "usuario" => $usuario,
+				  "password" => $encriptar
+			  );
+	  
+			  $respuesta = ModeloUsuarios::mdlOlvidoPass($tabla, $datos);
+	  
+			  if ($respuesta == "ok") {
+				  
+				  $mail = new PHPMailer(true);
+				  try {
+					$mail->SMTPDebug = 0;
+					$mail->isSMTP();
+					$mail->Host = 'webmail.sucampo.com.co';
+					$mail->SMTPAuth = true;
+					$mail->Username = 'camilohernandez@sucampo.com.co';
+					$mail->Password = 'W0lf4ng.2145'; 
+					$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+					$mail->Port = 25;
+					$mail->CharSet = 'UTF-8';
+
+					$mail->setFrom('camilohernandez@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
+					$mail->addAddress($email, $usuario);
+
+					$mail->isHTML(true);
+					$mail->Subject = 'Acceso a SIPRO - SucampoSullanta SAS';
+					$mail->Body = '<table style="width: 500px; margin: auto; text-align: left; font-family: sans-serif;">
+					   <tr>
+						   <td><img style="width: 130px;" src="https://servicios.sucampo.com.co/vistas/img/logo.jpg" alt=""></td>
+					   </tr>
+					   <tr>
+						   <td style="font-size: 30px;">SIPRO - SucampoSullanta</td>
+					   </tr>
+					   <tr>
+						   <td><hr></td>
+					   </tr>
+					   <tr>
+						   <td style="padding: 11px 0;">Se ha restablecido la contraseña para el usuario: '.$usuario.' su nueva contraseña de acceso es: '.$pass.'</td>
+					   </tr>
+					   <tr>
+						   <td><a style="background: #01d06a; color: #fff; padding: 10px 15px; margin: 23px auto; width: 150px; border: 2px solid #00a554; text-decoration: none; display: block; border-radius: 8px; text-align: center; font-size: 20px;
+							   " href="https://servicios.sucampo.com.co/sipro/">Ir Aplicacion</a></td>
+					   </tr>
+				   </table>';
+					//$mail->AltBody = 'Esta es la versión en texto plano del correo electrónico para clientes que no aceptan HTML';
+
+					$mail->send();
+				} catch (Exception $e) {
+					// Considera manejar este error de manera que informe al usuario/administrador
+					echo 'El mensaje no pudo ser enviado. Error: ', $mail->ErrorInfo;
+				}
+	  
+				  echo '<script>
+						   document.addEventListener("DOMContentLoaded", function() {
+							   Swal.fire(
+								   "Restablecimiento Contraseña OK",
+								   "Se restablecio su contraseña y se ha enviado al correo electrónico: '.$email.'",
+								   "success"
+							   ).then(function(result) {
+								   if (result.value) {
+									   window.location = "salir";
+								   }
+							   });
+						   });
+					   </script>';
+			  }
+		  }
+	  }
+	  
 }

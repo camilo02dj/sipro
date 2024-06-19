@@ -3,104 +3,95 @@
 
 <head>
     <meta charset="utf-8" />
-    <title> SIPRO | SucampoSullanta</title>
+    <title>SIPRO | Sucampo-Sullanta SAS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="../assets/images/logo-sucampo.ico">
-
-    <!-- App css -->
-    <link href="../assets/css/config/default/bootstrap.min.css" rel="stylesheet" type="text/css" id="bs-default-stylesheet" />
-    <link href="../assets/css/config/default/app.min.css" rel="stylesheet" type="text/css" id="app-default-stylesheet" />
-
-    <link href="../assets/css/config/default/bootstrap-dark.min.css" rel="stylesheet" type="text/css" id="bs-dark-stylesheet" />
-    <link href="../assets/css/config/default/app-dark.min.css" rel="stylesheet" type="text/css" id="app-dark-stylesheet" />
-
-    <!-- icons -->
-    <link href="../assets/css/icons.min.css" rel="stylesheet" type="text/css" />
-
+    <link rel="shortcut icon" href="../assets/images/favicon.ico">
 </head>
 
 <body style="background-image:url(vistas/img/fondo.jpg); width:100%; height:100%; background-position: center; background-size: cover;">
-    <div class="container"> <!-- pt-5 se le quito el top-->
-        <div class="row justify-content-center ">
-            <div class="carta col-xl-10 col-lg-12 col-md-9 "> <!-- pt-5 se le quito el top , se modifico el col-xl-7-->
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- parte izquierda del login donde va la imagen -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block">
-                                <img src="vistas/img/sipro.webp" style="width:100%; height:100%;">
+    <div class="account-pages mt-5 mb-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-6">
+                    <div class="card bg-pattern">
+                        <div class="card-body p-4">
+                            <div class="text-center w-75 m-auto">
+                                <img src="vistas/img/logo_sucampo1.webp" alt="" class="img-fluid mb-2">
+                                <h3 class="mb-3">Bienvenido a SIPRO</h3> <!-- Mensaje de bienvenida añadido aquí -->
                             </div>
-                            <!-- final de la parte izquierda del login donde va la imagen -->
-                            <!-- parte derecha del login donde va el formulario -->
-                            <div class="col-lg-6 p-5" style="height:auto; display:flex; justify-content:center; align-items:center;">
+                            <form method="post">
+                                <div class="mb-3">
+                                    <label for="emailaddress" class="form-label">Usuario</label>
+                                    <input class="form-control" type="text" name="ingUsuario" required placeholder="Usuario">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <div class="input-group input-group-merge">
+                                        <input type="password" name="ingPassword" class="form-control" placeholder="Password" required>
+                                        <div class="input-group-text" data-password="false">
+                                            <span class="password-eye"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="text-center d-grid mb-3">
+                                    <button class="btn btn-success" type="submit">Ingresar</button>
+                                </div>
                                 <div class="text-center">
-                                    <h1 id="titulo" class="h2 text-gray-900 mb-3">Bienvenido a SIPRO</h1>
-                                    <form method="post" class="user">
-                                        <div class="mb-3">
-                                            <input type="text" name="ingUsuario" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Ingrese usuario" style="font-size:20px; border:darkgray 1px solid; color:black; ">
-                                        </div>
-                                        <div class="mb-3">
-                                            <div class="input-group input-group-merge">
-                                                <input type="password" name="ingPassword" class="form-control" placeholder="Contraseña" required style="font-size:20px; border:darkgray 1px solid; color:black;">
-                                                <div class="input-group-text" data-password="false" style="font-size:20px; border:darkgray 1px solid; color:black;">
-                                                    <span class="password-eye"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
+                                <a href="" class="text-muted" data-bs-toggle="modal" data-bs-target="#modalOlvidoContraseña">¿Olvidó su contraseña?</a>
+                              
 
-                                            <button class="btn  btn-user btn-block" style="font-size: 20px; width:100%; background-color:green; color:white; font-weight:bold;" type="submit"> Ingresar</button>
-                                        </div>
-                                        <?php
+                                </div>
+                                <?php
+                                $login = new ControladorUsuarios();
+                                $login->ctrIngresoUsuario();
+                                ?>
+                            </form>
+                        </div> <!-- end card-body -->
+                    </div> <!-- end card -->
+                </div> <!-- end col -->
+            </div> <!-- end row -->
+        </div> <!-- end container -->
+    </div> <!-- end page -->
 
-                                        $login = new ControladorUsuarios();
-                                        $login->ctrIngresoUsuario();
+<!-- Modal contraseña -->
 
-                                        ?>
-                                    </form>
+    <div id="modalOlvidoContraseña" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Olvidó su contraseña?</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST">
+                    <div class="modal-body px-4">
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="mb-2">
+                                    <label for="field-2" class="form-label">Usuario</label>
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-text"><i class="fe-user"></i></div>
+                                        <input type="text" class="form-control" name="nuevoOlvido" placeholder="Usuario" required>
+                                    </div>
                                 </div>
                             </div>
-                            <!-- final de la parte derecha del login donde va el formulario -->
+                           
                         </div>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success waves-effect waves-light">Enviar</button>
+                    </div>
+                </form>
+                <?php
+                $olvidoP = new ControladorUsuarios();
+                $olvidoP->ctrOlvidoP();
+                ?>
             </div>
         </div>
-    </div>
+    </div><!-- /.modal -->
 
-    <!-- Vendor js -->
-    <script src="../assets/js/vendor.min.js"></script>
-
-    <!-- App js -->
-    <script src="../assets/js/app.min.js"></script>
-      <!-- Sweet Alerts js -->
-  <script src="vistas/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
 
 </body>
-<style>
 
-
-
-
-/* Media query para pantallas grandes */
-@media screen and (max-width: 1200px) {
-    .carta {
-      
-      width:58.33333333%;
-  }
-  input[type="text"]{
-    font-size: 15px !important;
-    
-  }
-    input[type="password"]{
-        font-size: 15px !important;
-    }
-.input-group-text{
-    font-size: 15px !important;
-}
-}
-
-</style>
 </html>

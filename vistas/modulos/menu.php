@@ -9,15 +9,20 @@
 
 				<li>
 					<a href="ventas" class="menu-item">
-					<i class="fas fa-shopping-basket"></i>
-
+						<i class="fas fa-shopping-basket"></i>
 						<span>Ventas</span>
 					</a>
 				</li>
 				<li>
-					<a href="inventarios" class="menu-item">
-					<i class="fas fa-warehouse"></i>
+					<a href="detalle-ventas" class="menu-item">
+						<i class="fas fa-receipt"></i>
+						<span>Detalle Ventas</span>
+					</a>
+				</li>
 
+				<li>
+					<a href="inventarios" class="menu-item">
+						<i class="fas fa-warehouse"></i>
 						<span>Inventarios</span>
 					</a>
 				</li>

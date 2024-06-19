@@ -26,7 +26,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="" class=" tablasInventarios table-sm table-striped nowrap w-100">
+                                <table id="" class="table tablasInventarios table-sm table-striped nowrap w-100">
                                     <thead>
                                         <tr>
                                             <th style="width:10px">#</th>

@@ -34,5 +34,16 @@ class ControladorVentas
 		return $respuesta;
 	}
 
+	static public function ctrVerVentas($nit, $fechaInicial, $fechaFinal)
+	{
+
+		$tabla = "vtas_proveedor";
+
+		$respuesta = ModeloVentas::mdlVentas($tabla, $nit, $fechaInicial, $fechaFinal);
+
+		return $respuesta;
+	}
+
+
 
 }

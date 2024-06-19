@@ -49,7 +49,7 @@ session_start();
 
   <!-- Css Custom -->
   <link href="vistas/assets/css/custom.css" rel="stylesheet" type="text/css" />
-
+  <link href="vistas/assets/css/login.css" rel="stylesheet" type="text/css" />
 </head>
 
 <!-- body start -->
@@ -86,7 +86,7 @@ session_start();
         $_GET["ruta"] == "cambiar-pass"||
         $_GET["ruta"] == "ventas"||
         $_GET["ruta"] == "inventarios"||
-        $_GET["ruta"] == "inventarios2"||
+        $_GET["ruta"] == "detalle-ventas"||
         $_GET["ruta"] == "salir"
       ) {
 
@@ -110,6 +110,7 @@ session_start();
   } else {
 
     include "modulos/login.php";
+    
   }
 
   ?>
@@ -172,8 +173,7 @@ session_start();
   <script src="vistas/js/plantilla.js"></script>
   <script src="vistas/js/ventas.js"></script>
   <script src="vistas/js/usuarios.js"></script>
-  <script src="vistas/js/inventarios.js"></script>
-
+ <script src="vistas/js/inventarios.js"></script>
 </body>
 
 </html>

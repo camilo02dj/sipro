@@ -62,6 +62,7 @@ if ($primera_vez != 1) {
                                     <tr>
                                         <th>#</th>
                                         <th>Producto</th>
+                                        <th>Tipo</th>
                                         <th>Unidades</th>
                                         <th>Acciones</th>
 
@@ -96,6 +97,7 @@ if ($primera_vez != 1) {
                                                         <td>' . ($key + 1) . '</td>
                                                      
                                                         <td>' . $value["desc_item"] . '</td>
+                                                         <td>' . $value["referencia"] . '</td>
 
                                                         <td>' . number_format($value["totalVendido"], 0) . '</td>
                                                         <td>  

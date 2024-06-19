@@ -116,3 +116,87 @@ $(".tablasDetallePro").on("click", ".btnVerDetalle", function () {
     });
 
 });
+
+
+$(document).ready(function() {
+    var perfilOcultoVentas = $('#perfilOcultoVentas').val();
+
+    var table = $(".tablaDetalleVentas").DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'excel', 'pdf'
+        ],
+        ajax: {
+            url: "ajax/datatable-ventas.ajax.php",
+            type: "GET",
+            data: function(d) {
+                d.perfilOcultoVentas = perfilOcultoVentas;
+                d.fechaInicial = localStorage.getItem("fechaInicial") || "";
+                d.fechaFinal = localStorage.getItem("fechaFinal") || "";
+            },
+            dataSrc: function(json) {
+                if (!json.data) {
+                    json.data = [];
+                }
+                return json.data;
+            }
+        },
+        deferRender: true,
+        retrieve: true,
+        processing: true,
+        language: {
+            sProcessing: "Procesando...",
+            sLengthMenu: "Mostrar _MENU_ registros",
+            sZeroRecords: "No se encontraron resultados",
+            sEmptyTable: "Ningún dato disponible en esta tabla",
+            sInfo: "Mostrando registros del _START_ al _END_ de un total de _TOTAL_",
+            sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0",
+            sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+            sInfoPostFix: "",
+            sSearch: "Buscar:",
+            sUrl: "",
+            sInfoThousands: ",",
+            sLoadingRecords: "Cargando...",
+            oPaginate: {
+                sFirst: "Primero",
+                sLast: "Último",
+                sNext: "Siguiente",
+                sPrevious: "Anterior",
+            },
+            oAria: {
+                sSortAscending: ": Activar para ordenar la columna de manera ascendente",
+                sSortDescending: ": Activar para ordenar la columna de manera descendente",
+            },
+        },
+    });
+
+    $('#btnDatarangeV').daterangepicker({
+        ranges: {
+            'Últimos 7 días': [moment().subtract(6, 'days'), moment()],
+            'Últimos 30 días': [moment().subtract(29, 'days'), moment()],
+            'Este mes': [moment().startOf('month'), moment().endOf('month')],
+            'Último mes': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment(),
+        endDate: moment()
+    },
+    function(start, end) {
+        $('#btnDatarangeV span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+
+        var fechaInicial = start.format('YYYY-MM-DD');
+        var fechaFinal = end.format('YYYY-MM-DD');
+
+        localStorage.setItem("fechaInicial", fechaInicial);
+        localStorage.setItem("fechaFinal", fechaFinal);
+
+        // Recargar la tabla con los nuevos datos
+        table.ajax.reload();
+    });
+    $(".cancelaFecha").on("click", function () {
+        localStorage.removeItem("capturarRango");
+        localStorage.clear();
+        window.location = "detalle-ventas";
+        $('#btnDatarangeV span').html('Rango de Fechas'); // Restablece el texto del botón al predeterminado
+    });
+});
+

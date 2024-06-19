@@ -22,15 +22,29 @@ class TablaInventarios {
 
         foreach ($inventarios as $i => $inventario) {
             $co = ControladorCentros::ctrMostrarCentros("id", $inventario["co_bodega"]);
-            $color = $this->getColorDeFecha($inventario["fecha_vcto_lote"]);
-            $datosJson["data"][] = [
-                $i + 1,
-                htmlspecialchars($inventario["desc_item"], ENT_QUOTES, 'UTF-8'),
-                htmlspecialchars($inventario["cant_disponible"], ENT_QUOTES, 'UTF-8'),
-                "<span style='color: $color'>" . htmlspecialchars($inventario["fecha_vcto_lote"], ENT_QUOTES, 'UTF-8') . "</span>",
-                htmlspecialchars($co["centro_operacion"], ENT_QUOTES, 'UTF-8')
-            ];
+        
+            // Verifica si $co es un arreglo antes de acceder a sus elementos
+            if (is_array($co)) {
+                $color = $this->getColorDeFecha($inventario["fecha_vcto_lote"]);
+                $datosJson["data"][] = [
+                    $i + 1,
+                    htmlspecialchars($inventario["desc_item"], ENT_QUOTES, 'UTF-8'),
+                    htmlspecialchars($inventario["cant_disponible"], ENT_QUOTES, 'UTF-8'),
+                    "<span style='color: $color'>" . htmlspecialchars($inventario["fecha_vcto_lote"], ENT_QUOTES, 'UTF-8') . "</span>",
+                    htmlspecialchars($co["centro_operacion"], ENT_QUOTES, 'UTF-8')
+                ];
+            } else {
+                // Maneja el caso donde $co no es un arreglo (posiblemente porque no se encontraron datos)
+                $datosJson["data"][] = [
+                    $i + 1,
+                    htmlspecialchars($inventario["desc_item"], ENT_QUOTES, 'UTF-8'),
+                    htmlspecialchars($inventario["cant_disponible"], ENT_QUOTES, 'UTF-8'),
+                    "<span style='color: red'>" . htmlspecialchars($inventario["fecha_vcto_lote"], ENT_QUOTES, 'UTF-8') . "</span>",
+                    "Centro no encontrado"
+                ];
+            }
         }
+        
 
         echo json_encode($datosJson);
     }

@@ -6,13 +6,10 @@ require_once "../controladores/centros.controlador.php";
 require_once "../modelos/centros.modelo.php";
 
 class TablaVentas {
-    public $fechaI;
-    public $fechaF;
-
     public function mostrarTablaVentas() {
         $nit = $_SESSION["usuario"];
-        $fechaInicial = $this->fechaI;
-        $fechaFinal = $this->fechaF;
+        $fechaInicial = isset($_GET['fechaInicial']) ? $_GET['fechaInicial'] : null;
+        $fechaFinal = isset($_GET['fechaFinal']) ? $_GET['fechaFinal'] : null;
         $Ventas = ControladorVentas::ctrVerVentas($nit, $fechaInicial, $fechaFinal);
 
         if (count($Ventas) == 0) {
@@ -43,6 +40,4 @@ class TablaVentas {
 }
 
 $activarReporte = new TablaVentas();
-$activarReporte->fechaI = $_GET['fechaInicial'];
-$activarReporte->fechaF = $_GET['fechaFinal'];
 $activarReporte->mostrarTablaVentas();
