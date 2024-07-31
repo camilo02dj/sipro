@@ -38,7 +38,7 @@ session_start();
 
   <!--  css Daterangepicker -->
   <link href="vistas/bower_components/bootstrap-daterangepicker/daterangepicker.css" />
-  <link href="vistas/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"/>
+  <link href="vistas/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" />
 
   <!-- third party css end -->
 
@@ -83,10 +83,11 @@ session_start();
       if (
         $_GET["ruta"] == "inicio" ||
         $_GET["ruta"] == "usuarios" ||
-        $_GET["ruta"] == "cambiar-pass"||
-        $_GET["ruta"] == "ventas"||
-        $_GET["ruta"] == "inventarios"||
-        $_GET["ruta"] == "detalle-ventas"||
+        $_GET["ruta"] == "cambiar-pass" ||
+        $_GET["ruta"] == "ventas" ||
+        $_GET["ruta"] == "inventarios" ||
+        $_GET["ruta"] == "detalle-ventas" ||
+        $_GET["ruta"] == "dealers" ||
         $_GET["ruta"] == "salir"
       ) {
 
@@ -110,7 +111,6 @@ session_start();
   } else {
 
     include "modulos/login.php";
-    
   }
 
   ?>
@@ -149,9 +149,9 @@ session_start();
   <script src="vistas/assets/libs/pdfmake/build/vfs_fonts.js"></script>
   <script src="vistas/bower_components/jqueryNumber/jquerynumber.min.js"></script>
   <!--<script src="https://coderthemes.com/ubold/layouts/assets/libs/bootstrap-table/bootstrap-table.min.js"></script>-->
- <!-- <script src="https://coderthemes.com/ubold/layouts/assets/js/pages/bootstrap-tables.init.js"></script>-->
+  <!-- <script src="https://coderthemes.com/ubold/layouts/assets/js/pages/bootstrap-tables.init.js"></script>-->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
-  
+
 
   <!-- Sweet Alerts js -->
   <script src="vistas/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
@@ -161,19 +161,20 @@ session_start();
   <script src="vistas/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
 
 
- <!--rangedatepicker -->
+  <!--rangedatepicker -->
   <script type="text/javascript" src="vistas/bower_components/daterangepicker/moment.min.js"></script>
   <script type="text/javascript" src="vistas/bower_components/daterangepicker/daterangepicker.min.js"></script>
   <link rel="stylesheet" type="text/css" href="vistas/bower_components/daterangepicker/daterangepicker.css" />
   <!-- Incluir Moment.js con locales -->
-<script src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
 
   <!-- third party js ends -->
   <!-- Script Propios -->
   <script src="vistas/js/plantilla.js"></script>
   <script src="vistas/js/ventas.js"></script>
   <script src="vistas/js/usuarios.js"></script>
- <script src="vistas/js/inventarios.js"></script>
+  <script src="vistas/js/inventarios.js"></script>
+  <script src="vistas/js/dealers.js"></script>
 </body>
 
 </html>

@@ -26,8 +26,19 @@
 						<span>Inventarios</span>
 					</a>
 				</li>
-
 				<?php
+
+				if($_SESSION["perfil"]=="Especial" or $_SESSION["perfil"]=="Administrador"){
+					echo'<li>
+					<a href="dealers" class="menu-item">
+						<i class="fas fa-users"></i>
+						<span>Dealers</span>
+					</a>
+				</li>';
+				}else{
+
+				}
+
 				if ($_SESSION["perfil"] == "Administrador") {
 					echo '
                     <li>
