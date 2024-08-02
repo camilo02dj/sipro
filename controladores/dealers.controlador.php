@@ -15,6 +15,18 @@ class ControladorDealers
 	}
 
 
+	static public function ctrValidarDealer($nit, $proveedor)
+	{
+
+		$tabla = "dealers";
+
+		$respuesta = ModeloDealers::mdlValidaDealers($tabla, $nit, $proveedor);
+
+		return $respuesta;
+	}
+
+
+
     static public function ctrCrearDelears()
 	{
 		if (isset($_POST["nuevoDealer"])) {
@@ -26,7 +38,8 @@ class ControladorDealers
 
 				$datos = array(
 					"nit" => $_POST["nuevoNitD"],
-					"nombre" => $_POST["nuevoDealer"]
+					"nombre" => $_POST["nuevoDealer"],
+					"proveedor"=> $_POST["proveedor"]
 				);
 
 				$respuesta = ModeloDealers::mdlRegistrarDealers($tabla, $datos);

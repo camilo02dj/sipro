@@ -63,7 +63,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                         $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
 
                                         foreach ($usuarios as $key => $value) {
-                                           
+
                                             echo ' <tr>
                                             <td>' . ($key + 1) . '</td>
                                             <td>' . $value["nombre"] . '</td>
@@ -93,8 +93,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                             </td>
                         
                                         </tr>';
-                                        
-                                    }
+                                        }
 
                                         ?>
                                     </tbody>
@@ -192,7 +191,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                     <option value="Estandar">Estandar</option>
                                     <option value="Especial">Especial</option>
                                     <option value="Administrador">Administrador</option>
-                                    
+
 
                                 </select>
                             </div>
@@ -243,7 +242,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                 <label for="field-2" class="form-label">Nombres Completos</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="fe-user"></i></div>
-                                    <input type="text" class="form-control" id="editarNombre" name="editarNombre" readonly>
+                                    <input type="text" class="form-control" id="editarNombre" name="editarNombre">
                                 </div>
                             </div>
 
@@ -283,26 +282,13 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                     </div>
 
                     <div class="row">
-
-                        <div class="col-md-6">
-                            <div class="mb-2">
-                                <label for="field-5" class="form-label">Password</label>
-                                <div class="input-group mb-2">
-                                    <div class="input-group-text"><i class="ti-key"></i></div>
-                                    <input type="password" class="form-control" name="editarPassword" placeholder="Escriba la nueva contraseña">
-                                    <div class="input-group-text" data-password="false">
-                                        <span class="password-eye"></span>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
                         <div class="col-md-6">
                             <div class="mb-2">
                                 <label for="field-3" class="form-label">Perfil</label>
                                 <select class="form-control" name="editarPerfil">
                                     <option id="editarPerfil"> Seleccione Perfil</option>
                                     <option value="Administrador">Administrador</option>
+                                    <option value="Especial">Especial</option>
                                     <option value="Estandar">Estandar</option>
 
                                 </select>

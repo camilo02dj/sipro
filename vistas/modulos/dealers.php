@@ -53,8 +53,14 @@ if ($_SESSION["perfil"] == "Estandar") {
                                     <tbody>
                                         <?php
 
-                                        $item = null;
-                                        $valor = null;
+                                        if ($_SESSION["perfil"] == "Administrador") {
+
+                                            $item = null;
+                                            $valor = null;
+                                        } else {
+                                            $item = "proveedor";
+                                            $valor = $_SESSION["usuario"];
+                                        }
 
                                         $dealers = ControladorDealers::ctrMostrarDealers($item, $valor);
 
@@ -67,7 +73,6 @@ if ($_SESSION["perfil"] == "Estandar") {
                                             <td>
                                             <div class="btn-group">
                                                 
-                                                <button class="btn btn-xs btn-success btnEditarDealer" idDealer="' . $value["id"] . '" data-bs-toggle="modal" data-bs-target="#modalEditarDealer"><i class="fa fa-edit"></i></button>
                                                 <button class="btn btn-xs btn-danger btnEliminarDealer" idDealer="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
                         
                                             </div>  
@@ -95,7 +100,7 @@ if ($_SESSION["perfil"] == "Estandar") {
 	=============================================*/
  -->
 
-<div id="modalAgregarDealer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+ <div id="modalAgregarDealer" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -111,7 +116,7 @@ if ($_SESSION["perfil"] == "Estandar") {
                                 <label for="field-2" class="form-label">Nit</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="fe-user"></i></div>
-                                    <input type="text" class="form-control" name="nuevoNitD" placeholder="Ingrese Nit" required>
+                                    <input type="number" class="form-control" id="nuevoNitD" name="nuevoNitD" placeholder="Ingrese Nit" required>
                                 </div>
                             </div>
                         </div>
@@ -122,12 +127,29 @@ if ($_SESSION["perfil"] == "Estandar") {
                                 <label for="field-2" class="form-label">Nombre</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="ti-id-badge"></i></div>
-                                    <input type="text" class="form-control" name="nuevoDealer" placeholder="Cargo" required>
-
+                                    <input type="text" class="form-control" name="nuevoDealer" placeholder="Nombre o Razón Social" required>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <?php
+                    if ($_SESSION["perfil"] == "Administrador") {
+                        echo '<div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-2">
+                                <label for="field-2" class="form-label">Nit Proveedor</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-text"><i class="ti-id-badge"></i></div>
+                                    <input type="text" class="form-control" id="proveedor" name="proveedor" placeholder="Nit Proveedor" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>';
+                    } else {
+                        echo '<input type="hidden" id="proveedor" name="proveedor" value="' . $_SESSION["usuario"] . '">';
+                    }
+                    ?>
+
                     <div class="row">
                         <div class="col">
                             <div class="mb-0">
@@ -149,6 +171,9 @@ if ($_SESSION["perfil"] == "Estandar") {
         </div>
     </div>
 </div><!-- /.modal -->
+
+
+
 
 <!-- /*=============================================
 	MODAL EDITAR DEALER

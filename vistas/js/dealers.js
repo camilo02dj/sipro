@@ -28,17 +28,18 @@ $(".tablas").on("click", ".btnEditarDealer", function() {
 })
 
 /*=============================================
-REVISAR SI EL USUARIO YA ESTÁ REGISTRADO
+REVISAR SI EL DEALER YA ESTÁ REGISTRADO
 =============================================*/
-
-$("#nuevoDealer").change(function() {
+$("#nuevoNitD").change(function() {
 
     $(".alert").remove();
 
     var dealer = $(this).val();
+    var proveedor = $("#proveedor").val();
 
     var datos = new FormData();
-    datos.append("validarDealer", dealer);
+    datos.append("dealer", dealer);
+    datos.append("proveedor", proveedor);
 
     $.ajax({
         url: "ajax/dealers.ajax.php",
@@ -54,14 +55,16 @@ $("#nuevoDealer").change(function() {
 
                 $("#mensajeRespuestaDealers").html('<div class="alert alert-warning">Este dealer ya existe en la base de datos</div>');
 
-                $("#nuevoDealer").val("");
+                $("#nuevoNitD").val("");
 
             }
 
         }
 
     })
-})
+});
+
+
 
     /*=============================================
     ELIMINAR USUARIO

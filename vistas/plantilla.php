@@ -49,7 +49,7 @@ session_start();
 
   <!-- Css Custom -->
   <link href="vistas/assets/css/custom.css" rel="stylesheet" type="text/css" />
-  <link href="vistas/assets/css/login.css" rel="stylesheet" type="text/css" />
+  <!-- <link href="vistas/assets/css/login.css" rel="stylesheet" type="text/css" /> -->
 </head>
 
 <!-- body start -->
