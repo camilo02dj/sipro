@@ -30,11 +30,24 @@
 
 				if($_SESSION["perfil"]=="Especial" or $_SESSION["perfil"]=="Administrador"){
 					echo'<li>
-					<a href="dealers" class="menu-item">
-						<i class="fas fa-users"></i>
-						<span>Dealers</span>
-					</a>
-				</li>';
+                        <a href="#sidebarDashboards" data-bs-toggle="collapse" class="menu-item">
+                            <i class="fe-settings"></i>
+                            <span>Dealers</span>
+                            <span class="menu-arrow"></span>
+                        </a>
+                        <div class="collapse" id="sidebarDashboards">
+                            <ul class="nav-second-level">
+                                <li>
+                                    <a href="dealers" class="sub-menu-item">
+                                        <i class="fas fa-user"></i> Dealers
+                                    </a>
+									<a href="ventas-dealers" class="sub-menu-item">
+                                        <i class="fas fa-user"></i> Ventas Dealers
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>';
 				}else{
 
 				}

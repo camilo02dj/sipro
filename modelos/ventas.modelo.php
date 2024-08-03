@@ -103,7 +103,7 @@ class ModeloVentas
         return $stmt->fetch();
         //$stmt -> close();
 
-       
+
     }
 
     static public function mdlVentas($tabla, $nit, $fechaInicial, $fechaFinal)
@@ -150,5 +150,48 @@ class ModeloVentas
 
             return $stmt->fetchAll();
         }
+    }
+
+
+    static public function mdlMostrarVentasDealers($tabla, $proveedor, $fechaInicial, $fechaFinal)
+    {
+        $sql = "SELECT 
+                vp.depto AS departamento,
+                d.nit AS 'nit',
+                d.nombre AS 'Dealer',
+                vp.fecha AS 'Fecha',
+                vp.desc_item AS 'Producto',
+                vp.cantidad AS 'cant',
+                vp.total AS 'neto'
+            FROM 
+                $tabla vp
+            JOIN 
+                dealers d ON vp.cliente = d.nit
+            WHERE 
+                vp.item_proveedor = :proveedor";
+
+        if ($fechaInicial && $fechaFinal) {
+            $sql .= " AND vp.fecha BETWEEN :fechaInicial AND :fechaFinal";
+        }
+
+        $stmt = Conexion::conectar()->prepare($sql);
+
+
+        $stmt->bindParam(":proveedor", $proveedor, PDO::PARAM_STR);
+        if ($fechaInicial && $fechaFinal) {
+            $stmt->bindParam(":fechaInicial", $fechaInicial, PDO::PARAM_STR);
+            $stmt->bindParam(":fechaFinal", $fechaFinal, PDO::PARAM_STR);
+        }
+
+
+        $stmt->execute();
+
+
+        $result = $stmt->fetchAll();
+
+ 
+        $stmt = null;
+
+        return $result;
     }
 }

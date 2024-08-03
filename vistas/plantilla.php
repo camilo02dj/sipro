@@ -88,6 +88,7 @@ session_start();
         $_GET["ruta"] == "inventarios" ||
         $_GET["ruta"] == "detalle-ventas" ||
         $_GET["ruta"] == "dealers" ||
+        $_GET["ruta"] == "ventas-dealers" ||
         $_GET["ruta"] == "salir"
       ) {
 
