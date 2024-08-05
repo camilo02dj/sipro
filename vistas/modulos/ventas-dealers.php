@@ -46,7 +46,7 @@ if ($primera_vez != 1) {
                     <div class="card">
                         <div class="card-body">
 
-                            <button class="btn btn-secondary waves-effect " id="btnDatarange">
+                            <button class="btn btn-secondary waves-effect " id="btnDatarangeD">
 
                                 <span>
                                     <i class="fa fa-calendar"> </i> Rango de fecha
@@ -54,7 +54,7 @@ if ($primera_vez != 1) {
                                 <i class="fa fa-caret-down"></i>
 
                             </button>
-                            <button class="btn btn-success cancelaRange">Cancelar Rango</button>
+                            <button class="btn btn-success cancelaRangeD">Cancelar Rango</button>
                             <hr>
 
                             <table id="" class="table table-sm table-striped dt-responsive tablas tablasDetallePro">
@@ -104,7 +104,9 @@ if ($primera_vez != 1) {
                                                         <td>' . $value["Fecha"] . '</td>
                                                         <td>' . $value["Producto"] . '</td>
                                                         <td>' . $value["cant"] . '</td>
-                                                        <td>' . $value["neto"] . '</td>    
+                                                        <td style="text-align: right;">$ ' . number_format($value["neto"], 0, '', ',') . '</td>
+
+   
                                                 </tr>';
                                     }
 

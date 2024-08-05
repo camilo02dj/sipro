@@ -97,7 +97,6 @@ class ModeloDealers
 
 
 		$stmt = null;
-
 		
 	}
 
