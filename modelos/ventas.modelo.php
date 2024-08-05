@@ -156,19 +156,21 @@ class ModeloVentas
     static public function mdlMostrarVentasDealers($tabla, $proveedor, $fechaInicial, $fechaFinal)
     {
         $sql = "SELECT 
-                vp.depto AS departamento,
-                d.nit AS 'nit',
-                d.nombre AS 'Dealer',
-                vp.fecha AS 'Fecha',
-                vp.desc_item AS 'Producto',
-                vp.cantidad AS 'cant',
-                vp.total AS 'neto'
+            co.depto AS departamento,
+            d.nit AS nit,
+            d.nombre AS Dealer,
+            vp.fecha AS Fecha,
+            vp.desc_item AS Producto,
+            vp.cantidad AS cant,
+            vp.total AS neto
             FROM 
-                $tabla vp
+            $tabla vp
             JOIN 
-                dealers d ON vp.cliente = d.nit
+            dealers d ON vp.cliente = d.nit
+            JOIN 
+            centro_operacion co ON vp.co = co.codigo
             WHERE 
-                vp.item_proveedor = :proveedor";
+            vp.item_proveedor = :proveedor";
 
         if ($fechaInicial && $fechaFinal) {
             $sql .= " AND vp.fecha BETWEEN :fechaInicial AND :fechaFinal";
@@ -189,7 +191,7 @@ class ModeloVentas
 
         $result = $stmt->fetchAll();
 
- 
+
         $stmt = null;
 
         return $result;

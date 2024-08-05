@@ -28,28 +28,32 @@
 				</li>
 				<?php
 
-				if($_SESSION["perfil"]=="Especial" or $_SESSION["perfil"]=="Administrador"){
-					echo'<li>
+				if ($_SESSION["perfil"] == "Especial" or $_SESSION["perfil"] == "Administrador") {
+					echo '<li>
                         <a href="#sidebarDashboards" data-bs-toggle="collapse" class="menu-item">
-                            <i class="fe-settings"></i>
+                            <i class="fas fa-address-book"></i>
                             <span>Dealers</span>
                             <span class="menu-arrow"></span>
                         </a>
                         <div class="collapse" id="sidebarDashboards">
                             <ul class="nav-second-level">
-                                <li>
-                                    <a href="dealers" class="sub-menu-item">
-                                        <i class="fas fa-user"></i> Dealers
-                                    </a>
+								<li>
 									<a href="ventas-dealers" class="sub-menu-item">
-                                        <i class="fas fa-user"></i> Ventas Dealers
-                                    </a>
+    									<i class="fas fa-shopping-cart"></i> 
+										<span>Ventas Dealers</span>
+									</a>
                                 </li>
+								<li>
+                                    <a href="dealers" class="sub-menu-item">
+                                        <i class="fas fa-user"></i> 
+										<span>Dealers</span>
+                                    </a>
+									
+								</li>
                             </ul>
                         </div>
                     </li>';
-				}else{
-
+				} else {
 				}
 
 				if ($_SESSION["perfil"] == "Administrador") {
