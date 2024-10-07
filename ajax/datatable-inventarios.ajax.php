@@ -8,7 +8,7 @@ require_once "../modelos/centros.modelo.php";
 class TablaInventarios {
     
     public function mostrarTablaInventarios() {
-        if($_SESSION["perfil"]=="Administrador" || $_SESSION["perfil"]== "Especial" ){
+        if($_SESSION["perfil"]=="Administrador"){
         $item = null;
         $valor = null;
         }else{
@@ -21,10 +21,12 @@ class TablaInventarios {
         $datosJson = ["data" => []];
 
         foreach ($inventarios as $i => $inventario) {
-            $co = ControladorCentros::ctrMostrarCentros("id", $inventario["co_bodega"]);
-        
-            // Verifica si $co es un arreglo antes de acceder a sus elementos
-            if (is_array($co)) {
+            // Obtener datos del centro de operaciones
+            $co = ControladorCentros::ctrMostrarCentros("codigo", $inventario["co_bodega"]);
+            
+            // Verifica si $co contiene datos válidos
+            if (is_array($co) && isset($co["centro_operacion"])) {
+                // Si se encontró el centro de operaciones, continua normalmente
                 $color = $this->getColorDeFecha($inventario["fecha_vcto_lote"]);
                 $datosJson["data"][] = [
                     $i + 1,
@@ -34,16 +36,17 @@ class TablaInventarios {
                     htmlspecialchars($co["centro_operacion"], ENT_QUOTES, 'UTF-8')
                 ];
             } else {
-                // Maneja el caso donde $co no es un arreglo (posiblemente porque no se encontraron datos)
+                // Si no se encuentra el centro de operaciones, maneja el caso de forma adecuada
                 $datosJson["data"][] = [
                     $i + 1,
                     htmlspecialchars($inventario["desc_item"], ENT_QUOTES, 'UTF-8'),
                     htmlspecialchars($inventario["cant_disponible"], ENT_QUOTES, 'UTF-8'),
                     "<span style='color: red'>" . htmlspecialchars($inventario["fecha_vcto_lote"], ENT_QUOTES, 'UTF-8') . "</span>",
-                    "Centro no encontrado"
+                    "Centro no encontrado" // O maneja un valor por defecto
                 ];
             }
         }
+        
         
 
         echo json_encode($datosJson);
