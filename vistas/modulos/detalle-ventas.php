@@ -58,19 +58,41 @@ if ($primera_vez != 1) {
                             <hr>
  
                             <table id="" class="table table-sm table-striped dt-responsive  tablaDetalleVentas">
-                            
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Fecha</th>
-                                        <th>Centro Operacion</th>
-                                        <th>Documento</th>
-                                        <th>Producto</th>
-                                        <th>Unidades</th>
-                                       
 
-                                    </tr>
-                                </thead>
+                            <?php
+                            if($_SESSION["perfil"]=="Vip"){
+                                echo' 
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Producto</th>
+                                    <th>Centro Operacion</th>
+                                    <th>Documento</th>
+                                    <th>Cant</th>
+                                    <th>Cliente</th>
+                                    <th>Fecha</th>
+                                    <th>Identificacion</th>
+                                   
+
+                                </tr>
+                                 </thead>';
+                            }else{
+                             echo'   <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fecha</th>
+                                    <th>Centro Operacion</th>
+                                    <th>Documento</th>
+                                    <th>Producto</th>
+                                    <th>Unidades</th>
+                                   
+
+                                </tr>
+                            </thead>';
+
+                            }
+                            ?>
+                    
                                 <tbody>
                                 <input type="hidden" value="<?php echo $_SESSION['perfil']; ?>" id="perfilOcultoVentas">
                                 </tbody>
