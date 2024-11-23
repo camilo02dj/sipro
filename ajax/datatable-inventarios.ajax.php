@@ -8,7 +8,7 @@ require_once "../modelos/centros.modelo.php";
 class TablaInventarios {
     
     public function mostrarTablaInventarios() {
-        if($_SESSION["perfil"]=="Administrador" || $_SESSION["perfil"]== "Especial" ){
+        if($_SESSION["perfil"]=="Administrador"){
         $item = null;
         $valor = null;
         }else{

@@ -28,30 +28,15 @@
 				</li>
 				<?php
 
-				if($_SESSION["perfil"]=="Especial" or $_SESSION["perfil"]=="Administrador"){
-					echo'<li>
-                        <a href="#sidebarDashboards" data-bs-toggle="collapse" class="menu-item">
-                            <i class="fe-settings"></i>
-                            <span>Dealers</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <div class="collapse" id="sidebarDashboards">
-                            <ul class="nav-second-level">
-                                <li>
-                                    <a href="dealers" class="sub-menu-item">
-                                        <i class="fas fa-user"></i> Dealers
-                                    </a>
+				if ($_SESSION["perfil"] == "Especial" or $_SESSION["perfil"] == "Administrador") {
+					echo '<li>
 									<a href="ventas-dealers" class="sub-menu-item">
-                                        <i class="fas fa-user"></i> Ventas Dealers
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>';
-				}else{
-
+    									<i class="fas fa-shopping-cart"></i> 
+										<span>Ventas Dealers</span>
+									</a>
+                                </li>';
+				} else {
 				}
-
 				if ($_SESSION["perfil"] == "Administrador") {
 					echo '
                     <li>
@@ -67,6 +52,27 @@
                                         <i class="fas fa-user"></i> Usuarios
                                     </a>
                                 </li>
+									<li>
+                                    <a href="dealers" class="sub-menu-item">
+                                        <i class="fas fa-users"></i> 
+										<span>Dealers</span>
+                                    </a>
+									
+									</li>
+										<li>
+                                    <a href="centros-operacion" class="sub-menu-item">
+                                        <i class="fas fa-city"></i> 
+										<span>Centros Operacion</span>
+                                    </a>
+									
+									</li>
+									<li>
+                                    <a href="clientes" class="sub-menu-item">
+                                        <i class="fas fa-user-tie"></i> 
+										<span>Clientes</span>
+                                    </a>
+									
+									</li>
                             </ul>
                         </div>
                     </li>';

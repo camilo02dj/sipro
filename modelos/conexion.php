@@ -6,8 +6,7 @@ class Conexion {
 
     private function __construct() {
         try {
-            #$this->conexion = new PDO('mysql:host=localhost;dbname=sipro', 'sucampo', 'Cra53061');
-            $this->conexion = new PDO('mysql:host=localhost;dbname=sipro', 'root', '');
+            $this->conexion = new PDO('mysql:host=localhost;dbname=sipro', 'sucampo', 'Sucampo3045$');
             $this->conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
             exit('Error: ' . $e->getMessage());

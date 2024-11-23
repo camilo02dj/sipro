@@ -1,46 +1,43 @@
 <?php
 require_once "conexion.php";
 
-class ModeloCentros
-{
-    static public function mdlMostrarCentros($tabla, $item, $valor)
-    {
-        try {
-            $db = Conexion::conectar();
+class ModeloClientes{
 
-            $stmt = $db->prepare($item != null ?
-                "SELECT * FROM $tabla WHERE $item = :$item" :
-                "SELECT * FROM $tabla");
+    static public function mdlMostrarClientes($tabla, $item, $valor){
 
-            if ($item != null) {
-                $stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
-            }
+        if ($item != null) {
 
-            $stmt->execute();
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
 
-            $resultado = $item != null ? $stmt->fetch() : $stmt->fetchAll();
+			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
-            $stmt = null; 
+			$stmt->execute();
 
-            return $resultado;
-        } catch (PDOException $e) {
-            // Captura errores y registra el mensaje
-            error_log("Error en mdlMostrarCentros: " . $e->getMessage());
-            return "error";
-        }
+			return $stmt->fetch();
+		} else {
+
+			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+
+			$stmt->execute();
+
+			return $stmt->fetchAll();
+		}
+
+
+		$stmt = null;
     }
 
-    static public function mdlRegistrarCentroOperacion($tabla, $datos)
+
+	static public function mdlCrearCliente($tabla, $datos)
     {
         try {
             $db = Conexion::conectar();
 
-            $stmt = $db->prepare("INSERT INTO $tabla (codigo, centro_operacion, depto, tipo) VALUES (:codigo, :centro_operacion, :depto, :tipo)");
+            $stmt = $db->prepare("INSERT INTO $tabla (codigo, nit, razon_social) VALUES (:codigo, :nit, :razon_social)");
 
             $stmt->bindParam(":codigo", $datos["codigo"], PDO::PARAM_STR);
-            $stmt->bindParam(":centro_operacion", $datos["centro_operacion"], PDO::PARAM_STR);
-            $stmt->bindParam(":depto", $datos["depto"], PDO::PARAM_STR);
-            $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
+            $stmt->bindParam(":nit", $datos["nit"], PDO::PARAM_STR);
+            $stmt->bindParam(":razon_social", $datos["razon_social"], PDO::PARAM_STR);
 
             if ($stmt->execute()) {
                 return "ok";
@@ -48,7 +45,6 @@ class ModeloCentros
                 return "error";
             }
         } catch (PDOException $e) {
-            // Captura errores y registra el mensaje
             error_log("Error en mdlRegistrarCentroOperacion: " . $e->getMessage());
             return "error";
         } finally {
@@ -56,18 +52,17 @@ class ModeloCentros
         }
     }
 
-    static public function mdlEditarCentroOperacion($tabla, $datos)
+    static public function mdlEditarCliente($tabla, $datos)
     {
   
         try {
             $db = Conexion::conectar();
 
-            $stmt = $db->prepare("UPDATE $tabla SET centro_operacion = :centro_operacion, depto = :depto, tipo = :tipo WHERE codigo = :codigo");
+            $stmt = $db->prepare("UPDATE $tabla SET  razon_social = :razon_social WHERE codigo = :codigo");
 
             $stmt->bindParam(":codigo", $datos["codigo"], PDO::PARAM_STR);
-            $stmt->bindParam(":centro_operacion", $datos["centro_operacion"], PDO::PARAM_STR);
-            $stmt->bindParam(":depto", $datos["depto"], PDO::PARAM_STR);
-            $stmt->bindParam(":tipo", $datos["tipo"], PDO::PARAM_STR);
+            $stmt->bindParam(":razon_social", $datos["razon_social"], PDO::PARAM_STR);
+
 
             if ($stmt->execute()) {
                 return "ok";
@@ -75,7 +70,6 @@ class ModeloCentros
                 return "error";
             }
         } catch (PDOException $e) {
-            // Captura errores y registra el mensaje
             error_log("Error en mdlEditarCentroOperacion: " . $e->getMessage());
             return "error";
         } finally {
@@ -84,7 +78,7 @@ class ModeloCentros
     }
 
 
-    static public function mdlBorrarCentros($tabla, $datos)
+    static public function mdlBorrarCliente($tabla, $datos)
     {
         try {
             $conexion = Conexion::conectar();
@@ -121,7 +115,6 @@ class ModeloCentros
         }
     }
     
-
 
 
 }
