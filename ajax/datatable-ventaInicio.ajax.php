@@ -7,45 +7,30 @@ require_once "../modelos/centros.modelo.php";
 require_once "../controladores/clientes.controlador.php";
 require_once "../modelos/clientes.modelo.php";
 
-class TablaVentas {
+class TablaVentas
+{
     public $fechaI;
     public $fechaF;
 
-    public function mostrarTablaVentas() {
+    public function mostrarTablaVentas()
+    {
         $nit = $_SESSION["usuario"];
         $fechaInicial = $this->fechaI;
         $fechaFinal = $this->fechaF;
         $perfil = $_SESSION["perfil"];
-        $Ventas = ControladorVentas::ctrVerVentas($nit, $fechaInicial, $fechaFinal, $perfil);
+        $Ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal, $perfil);
 
         if (count($Ventas) == 0) {
             echo '{"data": []}';
             return;
         }
-        
+
 
         $datosJson = '{"data": [';
 
         foreach ($Ventas as $i => $reporte) {
-        
 
-            if($_SESSION["perfil"]=="Vip" or $_SESSION["perfil"] == "Administrador"){
-              
-                $datosJson .= '[
-                    "' . ($i + 1) . '",
-                    "' . htmlspecialchars($reporte["desc_item"], ENT_QUOTES, 'UTF-8') . '",
-                    "' . htmlspecialchars($reporte["centro_operacion"], ENT_QUOTES, 'UTF-8') . '",
-                    "' . htmlspecialchars($reporte["nro_documento"], ENT_QUOTES, 'UTF-8') . '",
-                    "' . htmlspecialchars($reporte["cantidad"], ENT_QUOTES, 'UTF-8') . '",
-                    "' . htmlspecialchars($reporte["razon_social"], ENT_QUOTES, 'UTF-8') . '", 
-                    "' . htmlspecialchars($reporte["fecha"], ENT_QUOTES, 'UTF-8') . '",
-                    "' . htmlspecialchars($reporte["cliente"], ENT_QUOTES, 'UTF-8') . '"
-                ],';
-                
-
-            }else{
-
-                $datosJson .= '[
+            $datosJson .= '[
                     "' . ($i + 1) . '",
                     "' . htmlspecialchars($reporte["fecha"], ENT_QUOTES, 'UTF-8') . '",
                     "' . htmlspecialchars($reporte["centro_operacion"], ENT_QUOTES, 'UTF-8') . '",
@@ -53,9 +38,6 @@ class TablaVentas {
                     "' . htmlspecialchars($reporte["desc_item"], ENT_QUOTES, 'UTF-8') . '",
                     "' . htmlspecialchars($reporte["cantidad"], ENT_QUOTES, 'UTF-8') . '"
                 ],';
-
-            }
-          
         }
 
         // Elimina la última coma

@@ -60,7 +60,7 @@ if ($primera_vez != 1) {
                             <table id="" class="table table-sm table-striped dt-responsive  tablaDetalleVentas">
 
                             <?php
-                            if($_SESSION["perfil"]=="Vip"){
+                            if($_SESSION["perfil"]=="Vip" or $_SESSION["perfil"] =="Administrador"){
                                 echo' 
                                 <thead>
                                 <tr>

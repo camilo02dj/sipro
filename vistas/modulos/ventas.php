@@ -72,6 +72,7 @@ if ($primera_vez != 1) {
                                     <?php
                                     //$item ="item_proveedor";
                                     $nit = $_SESSION["usuario"];
+                                    $perfil = $_SESSION["perfil"];
 
                                     if (isset($_GET["fechaInicial"])) {
 
@@ -85,7 +86,7 @@ if ($primera_vez != 1) {
                                     }
 
 
-                                    $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal);
+                                    $ventas = ControladorVentas::ctrMostrarVentas($nit, $fechaInicial, $fechaFinal, $perfil);
 
 
 
