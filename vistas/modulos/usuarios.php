@@ -86,6 +86,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                             <div class="btn-group">
                                                 
                                                 <button class="btn btn-xs btn-success btnEditarUsuario" idUsuario="' . $value["id"] . '" data-bs-toggle="modal" data-bs-target="#modalEditarUsuario"><i class="fa fa-edit"></i></button>
+                                                <button class="btn btn-xs btn-info btnCambiarPassword" idUsuario="' . $value["id"] . '" data-bs-toggle="modal" data-bs-target="#modalCambiarPassword"><i class="fa fa-key"></i></button>
                                                 <button class="btn btn-xs btn-danger btnEliminarUsuario" idUsuario="' . $value["id"] . '"><i class="fa fa-trash"></i></button>
                         
                                             </div>  
@@ -311,7 +312,63 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
         </div>
     </div>
 </div><!-- /.modal -->
+<!--=============================================
+    MODAL CAMBIAR PASSWORD DESDE ADMINISTRADOR
+=============================================-->
+
+<div id="modalCambiarPassword" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Cambiar Password</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST">
+                <div class="modal-body px-4">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-2">
+                                <label for="field-2" class="form-label">Usuario</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-text"><i class="fe-user"></i></div>
+                                    <input type="text" class="form-control" id="usuario" name="usuario" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-2">
+                                <label for="field-5" class="form-label">Password</label>
+                                <div class="input-group mb-2">
+                                    <div class="input-group-text"><i class="ti-key"></i></div>
+                                    <input type="password" id="pass" class="form-control" placeholder="Ingrese Password" name="password">
+                                    <div class="input-group-text" data-password="false">
+                                        <span class="password-eye"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-0">
+                                <div id="mensajeRespuestaUsuarios"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary waves-effect" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success waves-effect waves-light">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal -->
+
 <?php
+$cambiarPassAdmin = new ControladorUsuarios();
+$cambiarPassAdmin->ctrCambiarPassAdmin();
 $eliminarUsuario = new ControladorUsuarios();
 $eliminarUsuario->ctrBorrarUsuario();
 ?>

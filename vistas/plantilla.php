@@ -1,5 +1,5 @@
 <?php
-
+session_name("Sipro");
 session_start();
 
 ?>

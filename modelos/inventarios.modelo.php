@@ -9,7 +9,7 @@ class ModeloInventario
 
 		if ($item != null) {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla WHERE $item = :$item");
+			$stmt = Conexion::conectar()->prepare("SELECT centro_operacion.centro_operacion, $tabla.* FROM $tabla INNER JOIN centro_operacion ON centro_operacion.codigo = $tabla.co_bodega WHERE $item = :$item");
 
 			$stmt->bindParam(":" . $item, $valor, PDO::PARAM_STR);
 
@@ -18,7 +18,7 @@ class ModeloInventario
 			return $stmt->fetchAll();
 		} else {
 
-			$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla");
+			$stmt = Conexion::conectar()->prepare("SELECT centro_operacion.centro_operacion, $tabla.* FROM $tabla INNER JOIN centro_operacion ON centro_operacion.codigo = $tabla.co_bodega");
 
 			$stmt->execute();
 

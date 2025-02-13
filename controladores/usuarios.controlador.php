@@ -483,5 +483,41 @@ class ControladorUsuarios
 			  }
 		  }
 	  }
+
+
+	/*=============================================
+	CAMBIAR CONTRASEÑA DESDE ADMIN
+	=============================================*/
+
+	static public function ctrCambiarPassAdmin()
+	{
+		if (isset($_POST["password"])) {
+			$tabla = "usuarios";
+			$encriptar = crypt($_POST["password"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
+			$datos = array(
+				"usuario" => $_POST["usuario"],
+				"password" => $encriptar
+			);
+
+			$respuesta = ModeloUsuarios::mdlCambiarPassAdmin($tabla, $datos);
+
+			if ($respuesta == "ok") {
+				echo '<script>
+				   document.addEventListener("DOMContentLoaded", function() {
+					   Swal.fire(
+						   "Cambio de contraseña OK",
+						   "Se ha cambiado la contraseña exitosamente",
+						   "success"
+					   ).then(function(result) {
+						   if (result.value) {
+							   window.location = "usuarios";
+						   }
+					   });
+				   });
+				   </script>';
+			}
+		}
+	}
 	  
 }
