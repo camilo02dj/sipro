@@ -127,7 +127,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-2">
-                                <label for="field-2" class="form-label">Nombres Completos</label>
+                                <label for="field-2" class="form-label">Nombre Proveedor</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="fe-user"></i></div>
                                     <input type="text" class="form-control" name="nuevoNombre" placeholder="Ingrese Nombres Completos" required>
