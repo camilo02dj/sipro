@@ -109,7 +109,7 @@ class ControladorUsuarios
 					"usuario" => $_POST["nuevoUsuario"],
 					"password" => $encriptar,
 					"perfil" => $_POST["nuevoPerfil"],
-					"ultimo_login" => '1900-01-01'
+					"ultimo_login" => '2024-01-01'
 				);
 
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla, $datos);
@@ -123,14 +123,14 @@ class ControladorUsuarios
 						$pass = $_POST["password"];
 						$mail->SMTPDebug = 0; // Disable Debugging in production
 						$mail->isSMTP();
-						$mail->Host = 'webmail.sucampo.com.co';
+						$mail->Host = 'smtp.office365.com';
 						$mail->SMTPAuth = true;
-						$mail->Username = 'camilohernandez@sucampo.com.co';
-						$mail->Password = 'W0lf4ng.2145'; // Cambia 'tu_contraseña' por la contraseña real
+						$mail->Username = 'camilohernandez@sucampo.co';
+						$mail->Password = 'W0lf4ng.21452'; // Cambia 'tu_contraseña' por la contraseña real
 						$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-						$mail->Port = 25;
+						$mail->Port = 587;
 
-						$mail->setFrom('camilohernandez@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
+						$mail->setFrom('camilohernandez@sucampo.co', 'SIPRO - Sistema de Informacion Proveedores');
 						$mail->addAddress($_POST["nuevoEmail"], $_POST["nuevoNombre"]);
 
 						$mail->isHTML(true);
@@ -428,15 +428,15 @@ class ControladorUsuarios
 				  try {
 					$mail->SMTPDebug = 0;
 					$mail->isSMTP();
-					$mail->Host = 'webmail.sucampo.com.co';
+					$mail->Host = 'smtp.office365.com';
 					$mail->SMTPAuth = true;
-					$mail->Username = 'camilohernandez@sucampo.com.co';
-					$mail->Password = 'W0lf4ng.2145'; 
+					$mail->Username = 'camilohernandez@sucampo.co';
+					$mail->Password = 'W0lf4ng.21452'; 
 					$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-					$mail->Port = 25;
+					$mail->Port = 587;
 					$mail->CharSet = 'UTF-8';
 
-					$mail->setFrom('camilohernandez@sucampo.com.co', 'SIPRO - Sistema de Informacion Proveedores');
+					$mail->setFrom('camilohernandez@sucampo.co', 'SIPRO - Sistema de Informacion Proveedores');
 					$mail->addAddress($email, $usuario);
 
 					$mail->isHTML(true);
