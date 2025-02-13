@@ -490,34 +490,105 @@ class ControladorUsuarios
 	=============================================*/
 
 	static public function ctrCambiarPassAdmin()
-	{
-		if (isset($_POST["password"])) {
-			$tabla = "usuarios";
-			$encriptar = crypt($_POST["password"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+{
+    if (isset($_POST["passwordAdmin"]) && isset($_POST["usuario"])) {
+        $tabla = "usuarios";
+        $encriptar = crypt($_POST["passwordAdmin"], '$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+        $usuario = $_POST["usuario"];
 
-			$datos = array(
-				"usuario" => $_POST["usuario"],
-				"password" => $encriptar
-			);
+        // Obtener el email del usuario desde la base de datos
+        $usuarioData = ModeloUsuarios::mdlMostrarUsuarios($tabla, "usuario", $usuario);
+        
+        if (!$usuarioData) {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire("Error", "Usuario no encontrado", "error");
+                });
+                </script>';
+            return;
+        }
 
-			$respuesta = ModeloUsuarios::mdlCambiarPassAdmin($tabla, $datos);
+        $email = $usuarioData["email"];
+        $pass = $_POST["passwordAdmin"]; // Se mantiene la contraseña en texto plano para el correo
+        
+        $datos = array(
+            "usuario" => $usuario,
+            "password" => $encriptar
+        );
 
-			if ($respuesta == "ok") {
-				echo '<script>
-				   document.addEventListener("DOMContentLoaded", function() {
-					   Swal.fire(
-						   "Cambio de contraseña OK",
-						   "Se ha cambiado la contraseña exitosamente",
-						   "success"
-					   ).then(function(result) {
-						   if (result.value) {
-							   window.location = "usuarios";
-						   }
-					   });
-				   });
-				   </script>';
-			}
-		}
-	}
-	  
+        $respuesta = ModeloUsuarios::mdlCambiarPassAdmin($tabla, $datos);
+
+        if ($respuesta == "ok") {
+            $mail = new PHPMailer(true);
+            try {
+                $mail->SMTPDebug = 0;
+                $mail->isSMTP();
+                $mail->Host = 'smtp.office365.com';
+                $mail->SMTPAuth = true;
+                $mail->Username = 'camilohernandez@sucampo.co'; 
+                $mail->Password = 'W0lf4ng.21452'; 
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port = 587;
+                $mail->CharSet = 'UTF-8';
+
+                $mail->setFrom('camilohernandez@sucampo.co', 'SIPRO - Sistema de Información Proveedores');
+                $mail->addAddress($email, $usuario);
+
+                $mail->isHTML(true);
+                $mail->Subject = 'Cambio de Contraseña - SIPRO';
+
+                $mail->Body = '
+                <table style="width: 500px; margin: auto; text-align: left; font-family: sans-serif;">
+                    <tr>
+                        <td><img style="width: 130px;" src="https://servicios.sucampo.com.co/vistas/img/logo.jpg" alt=""></td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 30px;">SIPRO - SucampoSullanta</td>
+                    </tr>
+                    <tr>
+                        <td><hr></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 11px 0;">
+                            Se ha restablecido la contraseña para el usuario: <strong>'.$usuario.'</strong>. <br>
+                            Tu nueva contraseña de acceso es: <strong>'.$pass.'</strong>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a style="background: #01d06a; color: #fff; padding: 10px 15px; margin: 23px auto; width: 150px; border: 2px solid #00a554; 
+                            text-decoration: none; display: block; border-radius: 8px; text-align: center; font-size: 20px;"
+                            href="https://servicios.sucampo.com.co/sipro/">Ir a la Aplicación</a>
+                        </td>
+                    </tr>
+                </table>';
+
+                $mail->send();
+
+                echo '<script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire("Cambio de contraseña exitoso", "Se ha cambiado la contraseña y enviado un correo al usuario"'.$email.', "success")
+                        .then(function() {
+                            window.location = "usuarios";
+                        });
+                    });
+                </script>';
+
+            } catch (Exception $e) {
+                echo '<script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        Swal.fire("Error", "No se pudo enviar el correo: '.$mail->ErrorInfo.'", "error");
+                    });
+                </script>';
+            }
+        } else {
+            echo '<script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    Swal.fire("Error", "No se pudo actualizar la contraseña", "error");
+                });
+            </script>';
+        }
+    }
+}
+
 }

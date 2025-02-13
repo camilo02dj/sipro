@@ -341,7 +341,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                 <label for="field-5" class="form-label">Password</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="ti-key"></i></div>
-                                    <input type="password" id="pass" class="form-control" placeholder="Ingrese Password" name="password">
+                                    <input type="password" id="pass" class="form-control" placeholder="Ingrese Password" name="passwordAdmin">
                                     <div class="input-group-text" data-password="false">
                                         <span class="password-eye"></span>
                                     </div>
