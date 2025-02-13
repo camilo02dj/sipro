@@ -139,7 +139,7 @@ if ($_SESSION["perfil"] == "Especial" || $_SESSION["perfil"] == "Estandar") {
                                 <label for="field-2" class="form-label">Responsable</label>
                                 <div class="input-group mb-2">
                                     <div class="input-group-text"><i class="ti-id-badge"></i></div>
-                                    <input type="text" class="form-control" name="nuevoCargo" placeholder="Cargo" required>
+                                    <input type="text" class="form-control" name="nuevoCargo" placeholder="Responsable" required>
 
                                 </div>
                             </div>
